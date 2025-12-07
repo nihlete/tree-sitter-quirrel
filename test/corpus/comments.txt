@@ -1,0 +1,24 @@
+==================
+Inline comment
+==================
+
+// this is a comment
+
+---
+
+(source_file
+  (comment))
+
+==================
+Multiline comment
+==================
+
+/* a multi
+   line
+   comment
+*/
+
+---
+
+(source_file
+  (comment))

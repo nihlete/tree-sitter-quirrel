@@ -1,0 +1,115 @@
+==================
+Integer declaration
+==================
+
+local a = 123 // decimal
+local b = 0x0012 //hexadecimal
+local e = 123_456 // underscores may be used to visually sepearate digit groups
+local f = 0xAB_CD_01_23 // also underscores
+
+---
+
+(source_file
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (integer))))
+  (comment)
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (integer))))
+  (comment)
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (integer))))
+  (comment)
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (integer))))
+  (comment))
+
+==================
+Float declaration
+==================
+
+local a = 1.0
+local b = 0.234
+local c = 6.5e-11 //exponential notation
+local d = 12.345_67e+2 // digit group separators
+
+---
+
+(source_file
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (float))))
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (float))))
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (float))))
+  (comment)
+  (local_statement
+    (identifier)
+    (expression
+      (number
+        (float))))
+  (comment))
+
+==================
+String declaration
+==================
+
+let a = "I'm a wonderful string\n"
+let b = @"I'm a verbatim string\n"
+let c = $"a = {a}"
+let d = "" // empty string
+let f = $"" // empty interpolated string
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (simple_string
+          (string_content)))))
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (simple_string
+          (string_content)))))
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (interpolated_string
+          (string_content)))))
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (simple_string))))
+  (comment)
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (interpolated_string))))
+  (comment))
