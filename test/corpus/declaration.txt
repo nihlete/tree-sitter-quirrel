@@ -71,14 +71,11 @@ local d = 12.345_67e+2 // digit group separators
   (comment))
 
 ==================
-String declaration
+Simple string declaration
 ==================
 
-let a = "I'm a wonderful string\n"
-let b = @"I'm a verbatim string\n"
-let c = $"a = {a}"
-let d = "" // empty string
-let f = $"" // empty interpolated string
+let a = ""
+let b = "I'm a wonderful string\n {This is nothing special}"
 
 ---
 
@@ -87,29 +84,64 @@ let f = $"" // empty interpolated string
     (identifier)
     (expression
       (string
-        (simple_string
-          (string_content)))))
-  (let_statement
-    (identifier)
-    (expression
-      (string
-        (simple_string
-          (string_content)))))
-  (let_statement
-    (identifier)
-    (expression
-      (string
-        (interpolated_string
-          (string_content)))))
-  (let_statement
-    (identifier)
-    (expression
-      (string
         (simple_string))))
-  (comment)
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (simple_string
+          (string_content))))))
+
+==================
+Interpolated string declaration
+==================
+
+let c = $""
+let d = $"a = {a}"
+
+---
+
+(source_file
   (let_statement
     (identifier)
     (expression
       (string
         (interpolated_string))))
-  (comment))
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (interpolated_string
+          (interpolated_string_content)
+          (interpolation
+            (expression
+              (identifier))))))))
+
+==================
+Verbatim string declaration
+==================
+
+let e = @""
+let f = @"
+  this is a multiline string
+  it will ""embed"" all the new line
+  characters
+"
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (verbatim_string))))
+  (let_statement
+    (identifier)
+    (expression
+      (string
+        (verbatim_string
+          (string_content)
+          (verbatim_quotes
+            (string_content))
+          (string_content))))))

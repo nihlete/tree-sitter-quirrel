@@ -31,11 +31,11 @@
       "required": false,
       "types": [
         {
-          "type": "interpolation",
+          "type": "interpolated_string_content",
           "named": true
         },
         {
-          "type": "string_content",
+          "type": "interpolation",
           "named": true
         }
       ]
@@ -163,12 +163,54 @@
         {
           "type": "simple_string",
           "named": true
+        },
+        {
+          "type": "verbatim_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "verbatim_quotes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "string_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "verbatim_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "string_content",
+          "named": true
+        },
+        {
+          "type": "verbatim_quotes",
+          "named": true
         }
       ]
     }
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "\"\"",
     "named": false
   },
   {
@@ -198,6 +240,10 @@
   },
   {
     "type": "integer",
+    "named": true
+  },
+  {
+    "type": "interpolated_string_content",
     "named": true
   },
   {

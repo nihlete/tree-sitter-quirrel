@@ -63,17 +63,19 @@ module.exports = grammar({
     string: $ => choice(
       $.simple_string,
       $.interpolated_string,
+      $.verbatim_string
     ),
 
     string_content: $ => /[^"]+/,
+    interpolated_string_content: $ => /[^"{}]+/,
     simple_string: $ => seq(
-      choice('"', '@"'), // @" is verbatim string start
+      '"',
       optional($.string_content),
       '"'
     ),
     interpolated_string: $ => seq(
       '$"',
-      repeat(choice($.interpolation, $.string_content)),
+      repeat(choice($.interpolation, $.interpolated_string_content)),
       '"'
     ),
     interpolation: $ => seq(
@@ -82,6 +84,16 @@ module.exports = grammar({
       "}"
     ),
 
+    verbatim_string: $ => seq(
+      '@"',
+      repeat(choice($.string_content, $.verbatim_quotes)),
+      '"'
+    ),
+    verbatim_quotes: $ => seq(
+      '""',
+      optional($.string_content),
+      '""'
+    ),
 
     comment: $ =>
       token(
