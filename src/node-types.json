@@ -1,26 +1,8 @@
 [
   {
-    "type": "expression",
+    "type": "boolean",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "interpolated_string",
@@ -50,7 +32,23 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]
@@ -65,11 +63,23 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "boolean",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]
@@ -84,11 +94,23 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "boolean",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]
@@ -172,6 +194,37 @@
     }
   },
   {
+    "type": "unary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "verbatim_quotes",
     "named": true,
     "fields": {},
@@ -206,6 +259,10 @@
     }
   },
   {
+    "type": "!",
+    "named": false
+  },
+  {
     "type": "\"",
     "named": false
   },
@@ -215,6 +272,18 @@
   },
   {
     "type": "$\"",
+    "named": false
+  },
+  {
+    "type": "++",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "--",
     "named": false
   },
   {
@@ -229,6 +298,10 @@
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "false",
+    "named": false
   },
   {
     "type": "float",
@@ -259,11 +332,19 @@
     "named": true
   },
   {
+    "type": "true",
+    "named": false
+  },
+  {
     "type": "{",
     "named": false
   },
   {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]

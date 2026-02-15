@@ -27,20 +27,22 @@ module.exports = grammar({
       'local',
       $.identifier,
       '=',
-      $.expression
+      $._expression
     ),
 
     let_statement: $ => seq(
       'let',
       $.identifier,
       '=',
-      $.expression
+      $._expression
     ),
 
-    expression: $ => choice(
+    _expression: $ => choice(
       $.identifier,
       $.number,
       $.string,
+      $.boolean,
+      $.unary_expression
     ),
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
@@ -80,7 +82,7 @@ module.exports = grammar({
     ),
     interpolation: $ => seq(
       "{",
-      $.expression,
+      $._expression,
       "}"
     ),
 
@@ -94,6 +96,26 @@ module.exports = grammar({
       optional($.string_content),
       '""'
     ),
+
+    boolean: $ => choice(
+      "true",
+      "false"
+    ),
+
+    unary_expression: $ => choice(
+      $._unary_post_expression,
+      $._unary_pre_expression
+    ),
+
+    _unary_post_expression: $ => prec.left(seq(
+      $._expression,
+      choice( "++", "--" )
+    )),
+
+    _unary_pre_expression: $ => prec.left(seq(
+      choice( "-", "!", "~", "++", "--" ),
+      $._expression
+    )),
 
     comment: $ =>
       token(

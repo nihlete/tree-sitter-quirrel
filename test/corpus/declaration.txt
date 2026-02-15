@@ -12,27 +12,23 @@ local f = 0xAB_CD_01_23 // also underscores
 (source_file
   (local_statement
     (identifier)
-    (expression
-      (number
-        (integer))))
+    (number
+      (integer)))
   (comment)
   (local_statement
     (identifier)
-    (expression
-      (number
-        (integer))))
+    (number
+      (integer)))
   (comment)
   (local_statement
     (identifier)
-    (expression
-      (number
-        (integer))))
+    (number
+      (integer)))
   (comment)
   (local_statement
     (identifier)
-    (expression
-      (number
-        (integer))))
+    (number
+      (integer)))
   (comment))
 
 ==================
@@ -49,25 +45,21 @@ local d = 12.345_67e+2 // digit group separators
 (source_file
   (local_statement
     (identifier)
-    (expression
-      (number
-        (float))))
+    (number
+      (float)))
   (local_statement
     (identifier)
-    (expression
-      (number
-        (float))))
+    (number
+      (float)))
   (local_statement
     (identifier)
-    (expression
-      (number
-        (float))))
+    (number
+      (float)))
   (comment)
   (local_statement
     (identifier)
-    (expression
-      (number
-        (float))))
+    (number
+      (float)))
   (comment))
 
 ==================
@@ -82,15 +74,13 @@ let b = "I'm a wonderful string\n {This is nothing special}"
 (source_file
   (let_statement
     (identifier)
-    (expression
-      (string
-        (simple_string))))
+    (string
+      (simple_string)))
   (let_statement
     (identifier)
-    (expression
-      (string
-        (simple_string
-          (string_content))))))
+    (string
+      (simple_string
+        (string_content)))))
 
 ==================
 Interpolated string declaration
@@ -104,18 +94,15 @@ let d = $"a = {a}"
 (source_file
   (let_statement
     (identifier)
-    (expression
-      (string
-        (interpolated_string))))
+    (string
+      (interpolated_string)))
   (let_statement
     (identifier)
-    (expression
-      (string
-        (interpolated_string
-          (interpolated_string_content)
-          (interpolation
-            (expression
-              (identifier))))))))
+    (string
+      (interpolated_string
+        (interpolated_string_content)
+        (interpolation
+          (identifier))))))
 
 ==================
 Verbatim string declaration
@@ -133,15 +120,13 @@ let f = @"
 (source_file
   (let_statement
     (identifier)
-    (expression
-      (string
-        (verbatim_string))))
+    (string
+      (verbatim_string)))
   (let_statement
     (identifier)
-    (expression
-      (string
-        (verbatim_string
-          (string_content)
-          (verbatim_quotes
-            (string_content))
-          (string_content))))))
+    (string
+      (verbatim_string
+        (string_content)
+        (verbatim_quotes
+          (string_content))
+        (string_content)))))
