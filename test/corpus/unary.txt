@@ -1,0 +1,85 @@
+==================
+Unary minus
+==================
+
+let a = 42
+let b = -a
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (unary_expression
+      (identifier))))
+
+==================
+Logical not
+==================
+
+let a = true
+let b = !a
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (boolean))
+  (let_statement
+    (identifier)
+    (unary_expression
+      (identifier))))
+
+==================
+Bitwise not
+==================
+
+let a = 42
+let b = ~a
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (unary_expression
+      (identifier))))
+
+==================
+Pre- and postincrement
+==================
+
+let a = 42
+let b = a++
+let c = ++a
+let d = ++a++
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (unary_expression
+      (identifier)))
+  (let_statement
+    (identifier)
+    (unary_expression
+      (identifier)))
+  (let_statement
+    (identifier)
+    (unary_expression
+      (unary_expression
+        (identifier)))))

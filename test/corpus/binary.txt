@@ -1,0 +1,91 @@
+==================
+Additive
+==================
+
+let a = 1 + 1
+let b = 40 + a
+
+let c = 1 + 1 + 1
+let d = b - c
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (binary_expression
+      (add
+        (number
+          (integer))
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (add
+        (number
+          (integer))
+        (identifier))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (add
+        (binary_expression
+          (add
+            (number
+              (integer))
+            (number
+              (integer))))
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (substract
+        (identifier)
+        (identifier)))))
+
+==================
+Multiplicative
+==================
+
+let a = 7 * 2
+let b = 4 / 2
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (binary_expression
+      (multiply
+        (number
+          (integer))
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (divide
+        (number
+          (integer))
+        (number
+          (integer))))))
+
+==================
+Mod
+==================
+
+let a = 420 % 256
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (binary_expression
+      (mod
+        (number
+          (integer))
+        (number
+          (integer))))))
