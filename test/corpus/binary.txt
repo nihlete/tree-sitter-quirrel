@@ -89,3 +89,134 @@ let a = 420 % 256
           (integer))
         (number
           (integer))))))
+
+==================
+Shifts
+==================
+
+let a = 1 << 16
+let b = 23 >> 1
+let c = 42 >>> 2
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (binary_expression
+      (bit_shift_left
+        (number
+          (integer))
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (bit_shift_right
+        (number
+          (integer))
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (bit_shift_right_unsigned
+        (number
+          (integer))
+        (number
+          (integer))))))
+
+==================
+Comparison
+==================
+
+let a = 1
+let b = 44
+
+let c = a < b
+let d = a <= 1
+let e = b > 2
+let f = b >= 4
+
+let g = a instanceof "Float"
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (lt
+        (identifier)
+        (identifier))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (lteq
+        (identifier)
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (gt
+        (identifier)
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (gteq
+        (identifier)
+        (number
+          (integer)))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (instanceof
+        (identifier)
+        (string
+          (simple_string))))))
+
+==================
+In / Not In
+==================
+
+let a = { x = 4, y = 3 }
+let b = "x" in a
+let c = "b" not in a
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (table
+      (identifier)
+      (number
+        (integer))
+      (identifier)
+      (number
+        (integer))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (in
+        (string
+          (simple_string))
+        (identifier))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (not_in
+        (string
+          (simple_string))
+        (identifier)))))

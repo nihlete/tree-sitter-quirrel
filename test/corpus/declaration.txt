@@ -96,8 +96,7 @@ let b = "I'm a wonderful string\n {This is nothing special}"
   (let_statement
     (identifier)
     (string
-      (simple_string
-        (string_content)))))
+      (simple_string))))
 
 ==================
 Interpolated string declaration
@@ -142,8 +141,114 @@ let f = @"
   (let_statement
     (identifier)
     (string
-      (verbatim_string
-        (string_content)
-        (verbatim_quotes
-          (string_content))
-        (string_content)))))
+      (verbatim_string))))
+
+==================
+Array declaration
+==================
+
+let a = []
+let b = [0]
+let c = [123, "string", "", 2.0]
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (array))
+  (let_statement
+    (identifier)
+    (array
+      (number
+        (integer))))
+  (let_statement
+    (identifier)
+    (array
+      (number
+        (integer))
+      (string
+        (simple_string))
+      (string
+        (simple_string))
+      (number
+        (float)))))
+
+==================
+Table declaration
+==================
+
+let data = 123
+let a = {}
+let b = {
+  test1 = 1234
+  deleteme = "now"
+}
+
+let c = { a, b, data }
+
+let a = {
+  [1]="I'm the value"
+}
+
+let x = {
+  "id": 1,
+  "name": "Foo",
+  "price": 123,
+  "tags": ["Bar","Eek"]
+}
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (table))
+  (let_statement
+    (identifier)
+    (table
+      (identifier)
+      (number
+        (integer))
+      (identifier)
+      (string
+        (simple_string))))
+  (let_statement
+    (identifier)
+    (table
+      (identifier)
+      (identifier)
+      (identifier)))
+  (let_statement
+    (identifier)
+    (table
+      (number
+        (integer))
+      (string
+        (simple_string))))
+  (let_statement
+    (identifier)
+    (table
+      (string
+        (simple_string))
+      (number
+        (integer))
+      (string
+        (simple_string))
+      (string
+        (simple_string))
+      (string
+        (simple_string))
+      (number
+        (integer))
+      (string
+        (simple_string))
+      (array
+        (string
+          (simple_string))
+        (string
+          (simple_string))))))
