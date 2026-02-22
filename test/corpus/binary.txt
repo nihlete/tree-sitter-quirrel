@@ -220,3 +220,109 @@ let c = "b" not in a
         (string
           (simple_string))
         (identifier)))))
+
+==================
+Equality
+==================
+
+let a = 1
+let b = 2
+
+let c = a == b
+let d = a != b
+let e = a <=> b
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (number
+      (integer)))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (equal
+        (identifier)
+        (identifier))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (not_equal
+        (identifier)
+        (identifier))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (three_way
+        (identifier)
+        (identifier)))))
+
+==================
+Bitwise
+==================
+
+local a = 100 & 200
+local b = 300 | 400
+a = a ^ b
+b = a ^ b
+a = a ^ b
+
+---
+
+(source_file
+  (local_statement
+    (identifier)
+    (binary_expression
+      (bitwise_and
+        (number
+          (integer))
+        (number
+          (integer)))))
+  (local_statement
+    (identifier)
+    (binary_expression
+      (bitwise_or
+        (number
+          (integer))
+        (number
+          (integer)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (binary_expression
+        (bitwise_xor
+          (identifier)
+          (identifier)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (binary_expression
+        (bitwise_xor
+          (identifier)
+          (identifier)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (binary_expression
+        (bitwise_xor
+          (identifier)
+          (identifier))))))
+
+==================
+test
+==================
+
+a = b
+
+---
+
+(source_file
+  (expression_statement
+    (assignment
+      (identifier)
+      (identifier))))

@@ -67,10 +67,18 @@ Multiple local declaration
 ==================
 
 local a = 10, b = 20;
+local c = 10, d = 20
 
 ---
 
 (source_file
+  (local_statement
+    (identifier)
+    (number
+      (integer))
+    (identifier)
+    (number
+      (integer)))
   (local_statement
     (identifier)
     (number
