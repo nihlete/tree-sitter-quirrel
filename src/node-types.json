@@ -1,5 +1,107 @@
 [
   {
+    "type": "binary_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "add",
+        "named": true
+      },
+      {
+        "type": "bit_shift_left",
+        "named": true
+      },
+      {
+        "type": "bit_shift_right",
+        "named": true
+      },
+      {
+        "type": "bit_shift_right_unsigned",
+        "named": true
+      },
+      {
+        "type": "bitwise_and",
+        "named": true
+      },
+      {
+        "type": "bitwise_or",
+        "named": true
+      },
+      {
+        "type": "bitwise_xor",
+        "named": true
+      },
+      {
+        "type": "divide",
+        "named": true
+      },
+      {
+        "type": "equal",
+        "named": true
+      },
+      {
+        "type": "gt",
+        "named": true
+      },
+      {
+        "type": "gteq",
+        "named": true
+      },
+      {
+        "type": "in",
+        "named": true
+      },
+      {
+        "type": "instanceof",
+        "named": true
+      },
+      {
+        "type": "logical_and",
+        "named": true
+      },
+      {
+        "type": "logical_or",
+        "named": true
+      },
+      {
+        "type": "lt",
+        "named": true
+      },
+      {
+        "type": "lteq",
+        "named": true
+      },
+      {
+        "type": "mod",
+        "named": true
+      },
+      {
+        "type": "multiply",
+        "named": true
+      },
+      {
+        "type": "not_equal",
+        "named": true
+      },
+      {
+        "type": "not_in",
+        "named": true
+      },
+      {
+        "type": "null_coalescing",
+        "named": true
+      },
+      {
+        "type": "substract",
+        "named": true
+      },
+      {
+        "type": "three_way",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "expression",
     "named": true,
     "subtypes": [
@@ -56,6 +158,10 @@
         "named": true
       },
       {
+        "type": "nullable_index_expression",
+        "named": true
+      },
+      {
         "type": "number",
         "named": true
       },
@@ -73,6 +179,32 @@
       },
       {
         "type": "unary_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "block",
+        "named": true
+      },
+      {
+        "type": "expression_statement",
+        "named": true
+      },
+      {
+        "type": "let_statement",
+        "named": true
+      },
+      {
+        "type": "local_statement",
+        "named": true
+      },
+      {
+        "type": "return",
         "named": true
       }
     ]
@@ -117,113 +249,6 @@
       "types": [
         {
           "type": "expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "binary_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "add",
-          "named": true
-        },
-        {
-          "type": "bit_shift_left",
-          "named": true
-        },
-        {
-          "type": "bit_shift_right",
-          "named": true
-        },
-        {
-          "type": "bit_shift_right_unsigned",
-          "named": true
-        },
-        {
-          "type": "bitwise_and",
-          "named": true
-        },
-        {
-          "type": "bitwise_or",
-          "named": true
-        },
-        {
-          "type": "bitwise_xor",
-          "named": true
-        },
-        {
-          "type": "divide",
-          "named": true
-        },
-        {
-          "type": "equal",
-          "named": true
-        },
-        {
-          "type": "gt",
-          "named": true
-        },
-        {
-          "type": "gteq",
-          "named": true
-        },
-        {
-          "type": "in",
-          "named": true
-        },
-        {
-          "type": "instanceof",
-          "named": true
-        },
-        {
-          "type": "logical_and",
-          "named": true
-        },
-        {
-          "type": "logical_or",
-          "named": true
-        },
-        {
-          "type": "lt",
-          "named": true
-        },
-        {
-          "type": "lteq",
-          "named": true
-        },
-        {
-          "type": "mod",
-          "named": true
-        },
-        {
-          "type": "multiply",
-          "named": true
-        },
-        {
-          "type": "not_equal",
-          "named": true
-        },
-        {
-          "type": "not_in",
-          "named": true
-        },
-        {
-          "type": "null_coalescing",
-          "named": true
-        },
-        {
-          "type": "substract",
-          "named": true
-        },
-        {
-          "type": "three_way",
           "named": true
         }
       ]
@@ -328,23 +353,7 @@
       "required": false,
       "types": [
         {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "expression_statement",
-          "named": true
-        },
-        {
-          "type": "let_statement",
-          "named": true
-        },
-        {
-          "type": "local_statement",
-          "named": true
-        },
-        {
-          "type": "return",
+          "type": "statement",
           "named": true
         }
       ]
@@ -777,6 +786,21 @@
     }
   },
   {
+    "type": "nullable_index_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "number",
     "named": true,
     "fields": {},
@@ -855,23 +879,7 @@
       "required": false,
       "types": [
         {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "expression_statement",
-          "named": true
-        },
-        {
-          "type": "let_statement",
-          "named": true
-        },
-        {
-          "type": "local_statement",
-          "named": true
-        },
-        {
-          "type": "return",
+          "type": "statement",
           "named": true
         }
       ]
@@ -990,10 +998,6 @@
     "named": false
   },
   {
-    "type": "%=",
-    "named": false
-  },
-  {
     "type": "&",
     "named": false
   },
@@ -1014,19 +1018,11 @@
     "named": false
   },
   {
-    "type": "*=",
-    "named": false
-  },
-  {
     "type": "+",
     "named": false
   },
   {
     "type": "++",
-    "named": false
-  },
-  {
-    "type": "+=",
     "named": false
   },
   {
@@ -1042,10 +1038,6 @@
     "named": false
   },
   {
-    "type": "-=",
-    "named": false
-  },
-  {
     "type": ".",
     "named": false
   },
@@ -1055,10 +1047,6 @@
   },
   {
     "type": "/",
-    "named": false
-  },
-  {
-    "type": "/=",
     "named": false
   },
   {
@@ -1119,6 +1107,10 @@
   },
   {
     "type": "??",
+    "named": false
+  },
+  {
+    "type": "?[",
     "named": false
   },
   {

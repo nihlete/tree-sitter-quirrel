@@ -19,14 +19,13 @@ let mdist = a.x + a.y
         (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (add
-        (deref_expression
-          (identifier)
-          (identifier))
-        (deref_expression
-          (identifier)
-          (identifier))))))
+    (add
+      (deref_expression
+        (identifier)
+        (identifier))
+      (deref_expression
+        (identifier)
+        (identifier)))))
 
 ==================
 Nullable dereference
@@ -49,24 +48,21 @@ let mdist = a.x + a.y + (a?.z ?? 0)
         (integer))))
   (let_statement
     (identifier)
-    (binary_expression
+    (add
       (add
-        (binary_expression
-          (add
-            (deref_expression
-              (identifier)
-              (identifier))
-            (deref_expression
-              (identifier)
-              (identifier))))
-        (parenthesized_expression
-          (binary_expression
-            (null_coalescing
-              (nullable_deref_expression
-                (identifier)
-                (identifier))
-              (number
-                (integer)))))))))
+        (deref_expression
+          (identifier)
+          (identifier))
+        (deref_expression
+          (identifier)
+          (identifier)))
+      (parenthesized_expression
+        (null_coalescing
+          (nullable_deref_expression
+            (identifier)
+            (identifier))
+          (number
+            (integer)))))))
 
 ==================
 Index
@@ -88,6 +84,30 @@ let b = a[0]
   (let_statement
     (identifier)
     (index_expression
+      (identifier)
+      (number
+        (integer)))))
+
+==================
+Nullable index
+==================
+
+let a = [0, 1]
+let b = a?[0]
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (array
+      (number
+        (integer))
+      (number
+        (integer))))
+  (let_statement
+    (identifier)
+    (nullable_index_expression
       (identifier)
       (number
         (integer)))))

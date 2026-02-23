@@ -13,37 +13,32 @@ let d = b - c
 (source_file
   (let_statement
     (identifier)
-    (binary_expression
+    (add
+      (number
+        (integer))
+      (number
+        (integer))))
+  (let_statement
+    (identifier)
+    (add
+      (number
+        (integer))
+      (identifier)))
+  (let_statement
+    (identifier)
+    (add
       (add
         (number
           (integer))
         (number
-          (integer)))))
+          (integer)))
+      (number
+        (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (add
-        (number
-          (integer))
-        (identifier))))
-  (let_statement
-    (identifier)
-    (binary_expression
-      (add
-        (binary_expression
-          (add
-            (number
-              (integer))
-            (number
-              (integer))))
-        (number
-          (integer)))))
-  (let_statement
-    (identifier)
-    (binary_expression
-      (substract
-        (identifier)
-        (identifier)))))
+    (substract
+      (identifier)
+      (identifier))))
 
 ==================
 Multiplicative
@@ -57,20 +52,18 @@ let b = 4 / 2
 (source_file
   (let_statement
     (identifier)
-    (binary_expression
-      (multiply
-        (number
-          (integer))
-        (number
-          (integer)))))
+    (multiply
+      (number
+        (integer))
+      (number
+        (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (divide
-        (number
-          (integer))
-        (number
-          (integer))))))
+    (divide
+      (number
+        (integer))
+      (number
+        (integer)))))
 
 ==================
 Mod
@@ -83,12 +76,11 @@ let a = 420 % 256
 (source_file
   (let_statement
     (identifier)
-    (binary_expression
-      (mod
-        (number
-          (integer))
-        (number
-          (integer))))))
+    (mod
+      (number
+        (integer))
+      (number
+        (integer)))))
 
 ==================
 Shifts
@@ -103,28 +95,25 @@ let c = 42 >>> 2
 (source_file
   (let_statement
     (identifier)
-    (binary_expression
-      (bit_shift_left
-        (number
-          (integer))
-        (number
-          (integer)))))
+    (bit_shift_left
+      (number
+        (integer))
+      (number
+        (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (bit_shift_right
-        (number
-          (integer))
-        (number
-          (integer)))))
+    (bit_shift_right
+      (number
+        (integer))
+      (number
+        (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (bit_shift_right_unsigned
-        (number
-          (integer))
-        (number
-          (integer))))))
+    (bit_shift_right_unsigned
+      (number
+        (integer))
+      (number
+        (integer)))))
 
 ==================
 Comparison
@@ -153,38 +142,33 @@ let g = a instanceof "Float"
       (integer)))
   (let_statement
     (identifier)
-    (binary_expression
-      (lt
-        (identifier)
-        (identifier))))
+    (lt
+      (identifier)
+      (identifier)))
   (let_statement
     (identifier)
-    (binary_expression
-      (lteq
-        (identifier)
-        (number
-          (integer)))))
+    (lteq
+      (identifier)
+      (number
+        (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (gt
-        (identifier)
-        (number
-          (integer)))))
+    (gt
+      (identifier)
+      (number
+        (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (gteq
-        (identifier)
-        (number
-          (integer)))))
+    (gteq
+      (identifier)
+      (number
+        (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (instanceof
-        (identifier)
-        (string
-          (simple_string))))))
+    (instanceof
+      (identifier)
+      (string
+        (simple_string)))))
 
 ==================
 In / Not In
@@ -208,18 +192,16 @@ let c = "b" not in a
         (integer))))
   (let_statement
     (identifier)
-    (binary_expression
-      (in
-        (string
-          (simple_string))
-        (identifier))))
+    (in
+      (string
+        (simple_string))
+      (identifier)))
   (let_statement
     (identifier)
-    (binary_expression
-      (not_in
-        (string
-          (simple_string))
-        (identifier)))))
+    (not_in
+      (string
+        (simple_string))
+      (identifier))))
 
 ==================
 Equality
@@ -245,22 +227,19 @@ let e = a <=> b
       (integer)))
   (let_statement
     (identifier)
-    (binary_expression
-      (equal
-        (identifier)
-        (identifier))))
+    (equal
+      (identifier)
+      (identifier)))
   (let_statement
     (identifier)
-    (binary_expression
-      (not_equal
-        (identifier)
-        (identifier))))
+    (not_equal
+      (identifier)
+      (identifier)))
   (let_statement
     (identifier)
-    (binary_expression
-      (three_way
-        (identifier)
-        (identifier)))))
+    (three_way
+      (identifier)
+      (identifier))))
 
 ==================
 Bitwise
@@ -277,41 +256,36 @@ a = a ^ b
 (source_file
   (local_statement
     (identifier)
-    (binary_expression
-      (bitwise_and
-        (number
-          (integer))
-        (number
-          (integer)))))
+    (bitwise_and
+      (number
+        (integer))
+      (number
+        (integer))))
   (local_statement
     (identifier)
-    (binary_expression
-      (bitwise_or
-        (number
-          (integer))
-        (number
-          (integer)))))
+    (bitwise_or
+      (number
+        (integer))
+      (number
+        (integer))))
   (expression_statement
     (assignment
       (identifier)
-      (binary_expression
-        (bitwise_xor
-          (identifier)
-          (identifier)))))
+      (bitwise_xor
+        (identifier)
+        (identifier))))
   (expression_statement
     (assignment
       (identifier)
-      (binary_expression
-        (bitwise_xor
-          (identifier)
-          (identifier)))))
+      (bitwise_xor
+        (identifier)
+        (identifier))))
   (expression_statement
     (assignment
       (identifier)
-      (binary_expression
-        (bitwise_xor
-          (identifier)
-          (identifier))))))
+      (bitwise_xor
+        (identifier)
+        (identifier)))))
 
 ==================
 Null coalescing
@@ -328,8 +302,7 @@ let b = a ?? "undefined"
     (null))
   (let_statement
     (identifier)
-    (binary_expression
-      (null_coalescing
-        (identifier)
-        (string
-          (simple_string))))))
+    (null_coalescing
+      (identifier)
+      (string
+        (simple_string)))))

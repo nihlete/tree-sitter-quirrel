@@ -37,12 +37,14 @@ module.exports = grammar({
 
   supertypes: $ => [
     $.expression,
+    $.statement,
+    $.binary_expression
   ],
 
   rules: {
-    source_file: $ => repeat($._statement),
+    source_file: $ => repeat($.statement),
 
-    _statement: $ => choice(
+    statement: $ => choice(
       $.block,
       $.local_statement,
       $.let_statement,
@@ -50,7 +52,7 @@ module.exports = grammar({
       $.expression_statement
     ),
 
-    block: $ => prec(PREC.PAREN, seq('{', repeat($._statement), '}')),
+    block: $ => prec(PREC.PAREN, seq('{', repeat($.statement), '}')),
 
     local_statement: $ => prec.right(seq('local', $._initVar, optional(';'))),
     _initVar: $ => seq(
@@ -87,6 +89,7 @@ module.exports = grammar({
       $.compound_assignment,
       $.deref_expression,
       $.index_expression,
+      $.nullable_index_expression,
       $.nullable_deref_expression,
       $.parenthesized_expression,
       $.unary_expression,
@@ -149,19 +152,20 @@ module.exports = grammar({
     member_assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '<-', $.expression)),
     compound_assignment: $ => prec.right(PREC.ASSIGN, seq(
       $.expression,
-      choice(
+      token(choice(
         '+=',
         '-=',
         '*=',
         '/=',
         '%=',
-       ),
+       )),
       $.expression,
     )),
 
     deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '.', $.identifier)),
     nullable_deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '?.', $.identifier)),
     index_expression: $ => prec(PREC.MEMBER, seq($.expression, '[', $.expression, ']')),
+    nullable_index_expression: $ => prec(PREC.MEMBER, seq($.expression, '?[', $.expression, ']')),
 
     parenthesized_expression: $ => prec(PREC.PAREN, seq('(', $.expression, ')')),
 

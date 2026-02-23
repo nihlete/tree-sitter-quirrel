@@ -280,12 +280,11 @@ local a
   (block
     (let_statement
       (identifier)
-      (binary_expression
-        (add
-          (number
-            (integer))
-          (number
-            (integer)))))
+      (add
+        (number
+          (integer))
+        (number
+          (integer))))
     (expression_statement
       (assignment
         (identifier)
@@ -339,7 +338,6 @@ let h = @(x, y) x + y
         (identifier))
       (param
         (identifier))
-      (binary_expression
-        (add
-          (identifier)
-          (identifier))))))
+      (add
+        (identifier)
+        (identifier)))))
