@@ -314,15 +314,22 @@ a = a ^ b
           (identifier))))))
 
 ==================
-test
+Null coalescing
 ==================
 
-a = b
+let a = null
+let b = a ?? "undefined"
 
 ---
 
 (source_file
-  (expression_statement
-    (assignment
-      (identifier)
-      (identifier))))
+  (let_statement
+    (identifier)
+    (null))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (null_coalescing
+        (identifier)
+        (string
+          (simple_string))))))

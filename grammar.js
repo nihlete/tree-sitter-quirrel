@@ -8,18 +8,21 @@
 // @ts-check
 
 const PREC = {
-  ASSIGN: 1,
-  UNARY: 2,
-  MULTIPLICATIVE: 3,
-  ADDITIVE: 4,
-  SHIFT: 5,
-  COMPARISON: 6,
-  EQUALITY: 7,
+  PAREN: 1,
+  ASSIGN: 2,
+  NULL_COALESCING: 3,
+  LOGICAL_OR: 4,
+  LOGICAL_AND: 5,
+  BITWISE_OR: 6,
+  BITWISE_XOR: 7,
   BITWISE_AND: 8,
-  BITWISE_XOR: 9,
-  BITWISE_OR: 10,
-  LOGICAL_AND: 11,
-  LOGICAL_OR: 12,
+  EQUALITY: 9,
+  COMPARISON: 10,
+  SHIFT: 11,
+  ADDITIVE: 12,
+  MULTIPLICATIVE: 13,
+  UNARY: 14,
+  MEMBER: 15,
 };
 
 module.exports = grammar({
@@ -52,12 +55,13 @@ module.exports = grammar({
 
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
 
-    expression_statement: $ => prec.right(choice(
+    expression_statement: $ => prec.left(choice(
       seq($.expression, optional(';')),
       ';',
     )),
 
     expression: $ => choice(
+      $.null,
       $.identifier,
       $.number,
       $.string,
@@ -65,9 +69,14 @@ module.exports = grammar({
       $.array,
       $.table,
       $.assignment,
+      $.deref_expression,
+      $.nullable_deref_expression,
+      $.parenthesized_expression,
       $.unary_expression,
       $.binary_expression,
     ),
+
+    null: $ => 'null',
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
@@ -108,6 +117,11 @@ module.exports = grammar({
 
     assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '=', $.expression)),
 
+    deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '.', $.identifier)),
+    nullable_deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '?.', $.identifier)),
+
+    parenthesized_expression: $ => prec(PREC.PAREN, seq('(', $.expression, ')')),
+
     unary_expression: $ => choice(
       $._unary_post_expression,
       $._unary_pre_expression
@@ -140,6 +154,7 @@ module.exports = grammar({
       $.bitwise_or,
       $.logical_and,
       $.logical_or,
+      $.null_coalescing,
     ),
 
     add: $ => prec.left(PREC.ADDITIVE, seq($.expression, '+', $.expression)),
@@ -165,8 +180,7 @@ module.exports = grammar({
     bitwise_or: $ => prec.left(PREC.BITWISE_OR, seq($.expression, '|', $.expression)),
     logical_and: $ => prec.left(PREC.LOGICAL_AND, seq($.expression, '&&', $.expression)),
     logical_or: $ => prec.left(PREC.LOGICAL_OR, seq($.expression, '||', $.expression)),
-
-
+    null_coalescing: $ => prec.right(PREC.NULL_COALESCING, seq($.expression, '??', $.expression)),
 
     comment: $ =>
       token(

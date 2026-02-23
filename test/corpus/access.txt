@@ -1,0 +1,69 @@
+==================
+Dereference
+==================
+
+let a = {x = 1, y = 2}
+let mdist = a.x + a.y
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (table
+      (identifier)
+      (number
+        (integer))
+      (identifier)
+      (number
+        (integer))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (add
+        (deref_expression
+          (identifier)
+          (identifier))
+        (deref_expression
+          (identifier)
+          (identifier))))))
+
+==================
+Nullable dereference
+==================
+
+let a = {x = 1, y = 2}
+let mdist = a.x + a.y + (a?.z ?? 0)
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (table
+      (identifier)
+      (number
+        (integer))
+      (identifier)
+      (number
+        (integer))))
+  (let_statement
+    (identifier)
+    (binary_expression
+      (add
+        (binary_expression
+          (add
+            (deref_expression
+              (identifier)
+              (identifier))
+            (deref_expression
+              (identifier)
+              (identifier))))
+        (parenthesized_expression
+          (binary_expression
+            (null_coalescing
+              (nullable_deref_expression
+                (identifier)
+                (identifier))
+              (number
+                (integer)))))))))
