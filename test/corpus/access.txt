@@ -76,3 +76,18 @@ let a = [0, 1]
 let b = a[0]
 
 ---
+
+(source_file
+  (let_statement
+    (identifier)
+    (array
+      (number
+        (integer))
+      (number
+        (integer))))
+  (let_statement
+    (identifier)
+    (index_expression
+      (identifier)
+      (number
+        (integer)))))

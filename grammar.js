@@ -46,6 +46,7 @@ module.exports = grammar({
       $.block,
       $.local_statement,
       $.let_statement,
+      $.return,
       $.expression_statement
     ),
 
@@ -60,6 +61,12 @@ module.exports = grammar({
 
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
 
+    return: $ => prec.right(seq(
+      'return',
+      optional($.expression),
+      optional(';'),
+    )),
+
     expression_statement: $ => prec.left(choice(
       seq($.expression, optional(';')),
       ';',
@@ -73,6 +80,8 @@ module.exports = grammar({
       $.boolean,
       $.array,
       $.table,
+      $.function,
+      $.lambda,
       $.assignment,
       $.member_assignment,
       $.compound_assignment,
@@ -122,6 +131,19 @@ module.exports = grammar({
       seq('[', $.expression, ']', '=', $.expression),
       seq($.string , ':', $.expression),
     )),
+
+    function: $ => seq('function', optional($.identifier), '(', repeat($.param), ')', $.block),
+    lambda: $ => seq('@(', repeat($.param), ')', $.expression),
+    param: $ => seq(
+      choice(
+        seq(
+          $.identifier,
+          optional(seq('=', $.expression))
+        ),
+        '...', // vaiadic arg
+      ),
+      optional(',')
+    ),
 
     assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '=', $.expression)),
     member_assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '<-', $.expression)),

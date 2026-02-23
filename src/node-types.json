@@ -28,11 +28,19 @@
         "named": true
       },
       {
+        "type": "function",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
       {
         "type": "index_expression",
+        "named": true
+      },
+      {
+        "type": "lambda",
         "named": true
       },
       {
@@ -334,6 +342,10 @@
         {
           "type": "local_statement",
           "named": true
+        },
+        {
+          "type": "return",
+          "named": true
         }
       ]
     }
@@ -413,6 +425,29 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "param",
           "named": true
         }
       ]
@@ -522,6 +557,25 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lambda",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "param",
           "named": true
         }
       ]
@@ -742,12 +796,42 @@
     }
   },
   {
+    "type": "param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
       "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "expression",
@@ -784,6 +868,10 @@
         },
         {
           "type": "local_statement",
+          "named": true
+        },
+        {
+          "type": "return",
           "named": true
         }
       ]
@@ -962,6 +1050,10 @@
     "named": false
   },
   {
+    "type": "...",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
@@ -1034,6 +1126,10 @@
     "named": false
   },
   {
+    "type": "@(",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -1057,6 +1153,10 @@
   {
     "type": "float",
     "named": true
+  },
+  {
+    "type": "function",
+    "named": false
   },
   {
     "type": "identifier",
@@ -1093,6 +1193,10 @@
   {
     "type": "null",
     "named": true
+  },
+  {
+    "type": "return",
+    "named": false
   },
   {
     "type": "true",

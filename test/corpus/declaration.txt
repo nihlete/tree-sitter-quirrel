@@ -264,6 +264,7 @@ let x = {
 ==================
 Block
 ==================
+
 local a
 
 {
@@ -272,3 +273,73 @@ local a
 }
 
 ---
+
+(source_file
+  (local_statement
+    (identifier))
+  (block
+    (let_statement
+      (identifier)
+      (binary_expression
+        (add
+          (number
+            (integer))
+          (number
+            (integer)))))
+    (expression_statement
+      (assignment
+        (identifier)
+        (identifier)))))
+
+==================
+Function
+==================
+
+function() {}
+function f(x) { return x }
+function g(x, ...) { return x }
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (block)))
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier))
+      (block
+        (return
+          (identifier)))))
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier))
+      (param)
+      (block
+        (return
+          (identifier))))))
+
+==================
+Lambda
+==================
+
+let h = @(x, y) x + y
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (lambda
+      (param
+        (identifier))
+      (param
+        (identifier))
+      (binary_expression
+        (add
+          (identifier)
+          (identifier))))))
