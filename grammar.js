@@ -33,6 +33,8 @@ module.exports = grammar({
     $.comment,
   ],
 
+  word: $ => $.identifier,
+
   supertypes: $ => [
     $.expression,
   ],
@@ -41,10 +43,13 @@ module.exports = grammar({
     source_file: $ => repeat($._statement),
 
     _statement: $ => choice(
+      $.block,
       $.local_statement,
       $.let_statement,
       $.expression_statement
     ),
+
+    block: $ => prec(PREC.PAREN, seq('{', repeat($._statement), '}')),
 
     local_statement: $ => prec.right(seq('local', $._initVar, optional(';'))),
     _initVar: $ => seq(
@@ -69,7 +74,10 @@ module.exports = grammar({
       $.array,
       $.table,
       $.assignment,
+      $.member_assignment,
+      $.compound_assignment,
       $.deref_expression,
+      $.index_expression,
       $.nullable_deref_expression,
       $.parenthesized_expression,
       $.unary_expression,
@@ -107,18 +115,31 @@ module.exports = grammar({
 
     array: $ => seq('[', repeat(seq($.expression, optional(','))), ']'),
 
-    table: $ => seq('{', repeat(seq($._table_slot, optional(','))), '}'),
-    _table_slot: $ => choice(
+    table: $ => prec.right(seq('{', repeat(seq($._table_slot, optional(','))), '}')),
+    _table_slot: $ => prec(PREC.ASSIGN, choice(
       $.identifier,
       seq($.identifier, '=', $.expression),
       seq('[', $.expression, ']', '=', $.expression),
       seq($.string , ':', $.expression),
-    ),
+    )),
 
     assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '=', $.expression)),
+    member_assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '<-', $.expression)),
+    compound_assignment: $ => prec.right(PREC.ASSIGN, seq(
+      $.expression,
+      choice(
+        '+=',
+        '-=',
+        '*=',
+        '/=',
+        '%=',
+       ),
+      $.expression,
+    )),
 
     deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '.', $.identifier)),
     nullable_deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '?.', $.identifier)),
+    index_expression: $ => prec(PREC.MEMBER, seq($.expression, '[', $.expression, ']')),
 
     parenthesized_expression: $ => prec(PREC.PAREN, seq('(', $.expression, ')')),
 

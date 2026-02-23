@@ -1,0 +1,82 @@
+==================
+Assignment
+==================
+
+local a
+a = 4
+
+---
+
+(source_file
+  (local_statement
+    (identifier))
+  (expression_statement
+    (assignment
+      (identifier)
+      (number
+        (integer)))))
+
+==================
+Member assignment
+==================
+
+let a = {}
+a.x <- 1
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (table))
+  (expression_statement
+    (member_assignment
+      (deref_expression
+        (identifier)
+        (identifier))
+      (number
+        (integer)))))
+
+==================
+Compound assignment
+==================
+
+local a = 23
+a += 1
+a *= 2
+a -= 5
+a /= 3
+a %= 10
+
+---
+
+(source_file
+  (local_statement
+    (identifier)
+    (number
+      (integer)))
+  (expression_statement
+    (compound_assignment
+      (identifier)
+      (number
+        (integer))))
+  (expression_statement
+    (compound_assignment
+      (identifier)
+      (number
+        (integer))))
+  (expression_statement
+    (compound_assignment
+      (identifier)
+      (number
+        (integer))))
+  (expression_statement
+    (compound_assignment
+      (identifier)
+      (number
+        (integer))))
+  (expression_statement
+    (compound_assignment
+      (identifier)
+      (number
+        (integer)))))

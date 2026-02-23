@@ -260,3 +260,15 @@ let x = {
           (simple_string))
         (string
           (simple_string))))))
+
+==================
+Block
+==================
+local a
+
+{
+  let b = 2+3
+  a = b
+}
+
+---

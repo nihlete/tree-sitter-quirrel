@@ -67,3 +67,12 @@ let mdist = a.x + a.y + (a?.z ?? 0)
                 (identifier))
               (number
                 (integer)))))))))
+
+==================
+Index
+==================
+
+let a = [0, 1]
+let b = a[0]
+
+---
