@@ -1,0 +1,44 @@
+==================
+if statement
+==================
+
+local a = 1;
+
+if (a > 1)
+  a--
+else if (a < 1)
+  a++
+else {
+  a = 10
+}
+
+---
+
+(source_file
+  (local_statement
+    (identifier)
+    (number
+      (integer)))
+  (if_statement
+    (gt
+      (identifier)
+      (number
+        (integer)))
+    (expression_statement
+      (unary_expression
+        (identifier)))
+    (else_statement
+      (if_statement
+        (lt
+          (identifier)
+          (number
+            (integer)))
+        (expression_statement
+          (unary_expression
+            (identifier)))
+        (else_statement
+          (expression_statement
+            (table
+              (identifier)
+              (number
+                (integer)))))))))

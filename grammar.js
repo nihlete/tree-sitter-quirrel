@@ -48,6 +48,7 @@ module.exports = grammar({
       $.block,
       $.local_statement,
       $.let_statement,
+      $.if_statement,
       $.return,
       $.expression_statement
     ),
@@ -62,6 +63,9 @@ module.exports = grammar({
     ),
 
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
+
+    if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
+    else_statement: $ => seq("else", $.statement),
 
     return: $ => prec.right(seq(
       'return',
