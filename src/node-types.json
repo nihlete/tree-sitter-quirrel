@@ -122,6 +122,10 @@
         "named": true
       },
       {
+        "type": "call_expression",
+        "named": true
+      },
+      {
         "type": "compound_assignment",
         "named": true
       },
@@ -192,6 +196,10 @@
         "named": true
       },
       {
+        "type": "do_while_statement",
+        "named": true
+      },
+      {
         "type": "expression_statement",
         "named": true
       },
@@ -209,6 +217,10 @@
       },
       {
         "type": "return",
+        "named": true
+      },
+      {
+        "type": "while_statement",
         "named": true
       }
     ]
@@ -369,6 +381,21 @@
     "fields": {}
   },
   {
+    "type": "call_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "compound_assignment",
     "named": true,
     "fields": {},
@@ -408,6 +435,25 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "do_while_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "statement",
           "named": true
         }
       ]
@@ -1016,6 +1062,25 @@
     "fields": {}
   },
   {
+    "type": "while_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -1181,6 +1246,10 @@
     "extra": true
   },
   {
+    "type": "do",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -1242,6 +1311,10 @@
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "while",
     "named": false
   },
   {

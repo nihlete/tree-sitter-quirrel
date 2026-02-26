@@ -22,7 +22,8 @@ const PREC = {
   ADDITIVE: 12,
   MULTIPLICATIVE: 13,
   UNARY: 14,
-  MEMBER: 15,
+  CALL: 15,
+  MEMBER: 16,
 };
 
 module.exports = grammar({
@@ -49,6 +50,8 @@ module.exports = grammar({
       $.local_statement,
       $.let_statement,
       $.if_statement,
+      $.while_statement,
+      $.do_while_statement,
       $.return,
       $.expression_statement
     ),
@@ -66,6 +69,9 @@ module.exports = grammar({
 
     if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
+
+    while_statement: $ => seq("while", "(", $.expression, ")", $.statement),
+    do_while_statement: $ => seq("do", $.statement, "while", "(", $.expression, ")"),
 
     return: $ => prec.right(seq(
       'return',
@@ -88,6 +94,7 @@ module.exports = grammar({
       $.table,
       $.function,
       $.lambda,
+      $.call_expression,
       $.assignment,
       $.member_assignment,
       $.compound_assignment,
@@ -151,6 +158,8 @@ module.exports = grammar({
       ),
       optional(',')
     ),
+
+    call_expression: $ => prec(PREC.CALL, seq($.expression, "(", optional($.expression), ")")),
 
     assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '=', $.expression)),
     member_assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '<-', $.expression)),

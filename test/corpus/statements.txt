@@ -42,3 +42,78 @@ else {
               (identifier)
               (number
                 (integer)))))))))
+
+==================
+while statement
+==================
+
+while ( a < n ) a+=1
+
+while(1) {
+  if ( a < 0 ) break;
+  a -= 1;
+}
+
+---
+
+(source_file
+  (while_statement
+    (lt
+      (identifier)
+      (identifier))
+    (expression_statement
+      (compound_assignment
+        (identifier)
+        (number
+          (integer)))))
+  (while_statement
+    (number
+      (integer))
+    (block
+      (if_statement
+        (lt
+          (identifier)
+          (number
+            (integer)))
+        (expression_statement
+          (identifier)))
+      (expression_statement)
+      (expression_statement
+        (compound_assignment
+          (identifier)
+          (number
+            (integer))))
+      (expression_statement))))
+
+==================
+do-while statement
+==================
+
+local a=0
+do {
+  println(a)
+  a += 1
+} while(a > 100)
+
+---
+
+(source_file
+  (local_statement
+    (identifier)
+    (number
+      (integer)))
+  (do_while_statement
+    (block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (identifier)))
+      (expression_statement
+        (compound_assignment
+          (identifier)
+          (number
+            (integer)))))
+    (gt
+      (identifier)
+      (number
+        (integer)))))
