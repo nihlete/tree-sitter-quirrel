@@ -27,8 +27,12 @@ const PREC = {
 };
 
 function commaSep1(rule) {
-  return seq(rule, repeat(seq(',', rule)))
-}
+  return seq(rule, repeat(seq(optional(','), rule)))
+};
+
+function commaSep(rule) {
+  return optional(commaSep1(rule))
+};
 
 module.exports = grammar({
   name: "quirrel",
@@ -61,10 +65,12 @@ module.exports = grammar({
       $.switch_statement,
       $.for_statement,
       $.foreach_statement,
+      $.try_catch_statement,
       $.continue,
       $.break,
       $.return,
       $.yeld,
+      $.throw,
       $.expression_statement,
     ),
 
@@ -110,9 +116,12 @@ module.exports = grammar({
       $.statement
     ),
 
+    try_catch_statement: $ => seq("try", $.statement, "catch", "(", $.identifier, ")", $.statement),
+
     continue: $ => "continue",
     break: $ => "break",
     return: $ => prec.right(seq('return', optional($.expression))),
+    throw: $ => seq("throw", $.expression),
 
     yeld: $ => prec.right(seq('yeld', optional($.expression))),
     resume_expression: $ => prec.right(seq('resume', optional($.expression))),
@@ -183,20 +192,12 @@ module.exports = grammar({
       seq($.string , ':', $.expression),
     )),
 
-    function: $ => seq('function', optional($.identifier), '(', repeat($.param), ')', $.block),
-    lambda: $ => seq('@(', repeat($.param), ')', $.expression),
-    param: $ => seq(
-      choice(
-        seq(
-          $.identifier,
-          optional(seq('=', $.expression))
-        ),
-        '...', // vaiadic arg
-      ),
-      optional(',')
-    ),
+    function: $ => seq('function', optional($.identifier), '(', commaSep($.param), optional($.vaiadic_param), ')', $.block),
+    lambda: $ => seq('@(', commaSep($.param), optional($.vaiadic_param), ')', $.expression),
+    param: $ => seq($.identifier, optional(seq('=', $.expression))),
+    vaiadic_param: $ => seq(optional(","), "..."),
 
-    call_expression: $ => prec(PREC.CALL, seq($.expression, "(", optional($.expression), ")")),
+    call_expression: $ => prec(PREC.CALL, seq($.expression, "(", commaSep($.expression), ")")),
 
     assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '=', $.expression)),
     member_assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '<-', $.expression)),

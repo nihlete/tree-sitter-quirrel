@@ -361,3 +361,67 @@ for (local x=resume gtor; x; x=resume gtor)
           (string
             (simple_string
               (escape_sequence))))))))
+
+==================
+try-catch statement
+==================
+
+function foo(a, b, c) {
+  try {
+    println($"TRYING {a}")
+    throw b
+  } catch (e) {
+    println($"CAUGHT {e}")
+  }
+  println($"FINISHING {c}")
+}
+
+
+foo(1, 2, 3)
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier))
+      (param
+        (identifier))
+      (param
+        (identifier))
+      (block
+        (try_catch_statement
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (string
+                  (interpolated_string
+                    (interpolation
+                      (identifier))))))
+            (throw
+              (identifier)))
+          (identifier)
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (string
+                  (interpolated_string
+                    (interpolation
+                      (identifier))))))))
+        (expression_statement
+          (call_expression
+            (identifier)
+            (string
+              (interpolated_string
+                (interpolation
+                  (identifier)))))))))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (integer)
+      (integer)
+      (integer))))

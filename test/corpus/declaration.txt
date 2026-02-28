@@ -296,7 +296,7 @@ function g(x, ...) { return x }
       (identifier)
       (param
         (identifier))
-      (param)
+      (vaiadic_param)
       (block
         (return
           (identifier))))))
