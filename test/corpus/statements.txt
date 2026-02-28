@@ -75,8 +75,7 @@ while(1) {
           (identifier)
           (number
             (integer)))
-        (expression_statement
-          (identifier)))
+        (break))
       (expression_statement)
       (expression_statement
         (compound_assignment
@@ -117,3 +116,89 @@ do {
       (identifier)
       (number
         (integer)))))
+
+==================
+switch statement (deprecated)
+==================
+
+switch (dataType) {
+  case "null":
+    return "__null"
+  case "bool":
+  case "integer":
+  case "float":
+  case "string":
+    return data
+  case "array":
+  case "table":
+    logerr("table unsupported yet")
+    return "04"
+  case "DataBlock":
+    blk.setFrom(data)
+    blk.__datablock <- true
+    return "999"
+  default:
+    return "__unsupported"
+}
+
+---
+
+(source_file
+  (switch_statement
+    (identifier)
+    (case_statement
+      (string
+        (simple_string))
+      (return
+        (string
+          (simple_string))))
+    (case_statement
+      (string
+        (simple_string)))
+    (case_statement
+      (string
+        (simple_string)))
+    (case_statement
+      (string
+        (simple_string)))
+    (case_statement
+      (string
+        (simple_string))
+      (return
+        (identifier)))
+    (case_statement
+      (string
+        (simple_string)))
+    (case_statement
+      (string
+        (simple_string))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (string
+            (simple_string))))
+      (return
+        (string
+          (simple_string))))
+    (case_statement
+      (string
+        (simple_string))
+      (expression_statement
+        (call_expression
+          (deref_expression
+            (identifier)
+            (identifier))
+          (identifier)))
+      (expression_statement
+        (member_assignment
+          (deref_expression
+            (identifier)
+            (identifier))
+          (boolean)))
+      (return
+        (string
+          (simple_string))))
+    (default_statement
+      (return
+        (string
+          (simple_string))))))

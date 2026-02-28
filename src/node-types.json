@@ -196,6 +196,14 @@
         "named": true
       },
       {
+        "type": "break",
+        "named": true
+      },
+      {
+        "type": "continue",
+        "named": true
+      },
+      {
         "type": "do_while_statement",
         "named": true
       },
@@ -217,6 +225,10 @@
       },
       {
         "type": "return",
+        "named": true
+      },
+      {
+        "type": "switch_statement",
         "named": true
       },
       {
@@ -396,6 +408,25 @@
     }
   },
   {
+    "type": "case_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "compound_assignment",
     "named": true,
     "fields": {},
@@ -405,6 +436,21 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "default_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
           "named": true
         }
       ]
@@ -1012,6 +1058,29 @@
     }
   },
   {
+    "type": "switch_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "case_statement",
+          "named": true
+        },
+        {
+          "type": "default_statement",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "table",
     "named": true,
     "fields": {},
@@ -1241,9 +1310,25 @@
     "named": false
   },
   {
+    "type": "break",
+    "named": true
+  },
+  {
+    "type": "case",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "continue",
+    "named": true
+  },
+  {
+    "type": "default",
+    "named": false
   },
   {
     "type": "do",
@@ -1307,6 +1392,10 @@
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "switch",
     "named": false
   },
   {
