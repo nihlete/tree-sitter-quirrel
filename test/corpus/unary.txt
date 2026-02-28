@@ -10,8 +10,7 @@ let b = -a
 (source_file
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
     (unary_expression
@@ -47,8 +46,7 @@ let b = ~a
 (source_file
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
     (unary_expression
@@ -68,8 +66,7 @@ let d = ++a++
 (source_file
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
     (unary_expression

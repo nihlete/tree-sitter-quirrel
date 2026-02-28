@@ -14,26 +14,20 @@ let d = b - c
   (let_statement
     (identifier)
     (add
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (let_statement
     (identifier)
     (add
-      (number
-        (integer))
+      (integer)
       (identifier)))
   (let_statement
     (identifier)
     (add
       (add
-        (number
-          (integer))
-        (number
-          (integer)))
-      (number
-        (integer))))
+        (integer)
+        (integer))
+      (integer)))
   (let_statement
     (identifier)
     (substract
@@ -53,17 +47,13 @@ let b = 4 / 2
   (let_statement
     (identifier)
     (multiply
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (let_statement
     (identifier)
     (divide
-      (number
-        (integer))
-      (number
-        (integer)))))
+      (integer)
+      (integer))))
 
 ==================
 Mod
@@ -77,10 +67,8 @@ let a = 420 % 256
   (let_statement
     (identifier)
     (mod
-      (number
-        (integer))
-      (number
-        (integer)))))
+      (integer)
+      (integer))))
 
 ==================
 Shifts
@@ -96,24 +84,18 @@ let c = 42 >>> 2
   (let_statement
     (identifier)
     (bit_shift_left
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (let_statement
     (identifier)
     (bit_shift_right
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (let_statement
     (identifier)
     (bit_shift_right_unsigned
-      (number
-        (integer))
-      (number
-        (integer)))))
+      (integer)
+      (integer))))
 
 ==================
 Comparison
@@ -134,12 +116,10 @@ let g = a instanceof "Float"
 (source_file
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
     (lt
@@ -149,20 +129,17 @@ let g = a instanceof "Float"
     (identifier)
     (lteq
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (let_statement
     (identifier)
     (gt
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (let_statement
     (identifier)
     (gteq
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (let_statement
     (identifier)
     (instanceof
@@ -185,11 +162,9 @@ let c = "b" not in a
     (identifier)
     (table
       (identifier)
-      (number
-        (integer))
+      (integer)
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (let_statement
     (identifier)
     (in
@@ -219,12 +194,10 @@ let e = a <=> b
 (source_file
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
     (equal
@@ -257,17 +230,13 @@ a = a ^ b
   (local_statement
     (identifier)
     (bitwise_and
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (local_statement
     (identifier)
     (bitwise_or
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (expression_statement
     (assignment
       (identifier)

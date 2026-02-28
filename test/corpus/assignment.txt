@@ -13,8 +13,7 @@ a = 4
   (expression_statement
     (assignment
       (identifier)
-      (number
-        (integer)))))
+      (integer))))
 
 ==================
 Member assignment
@@ -34,8 +33,7 @@ a.x <- 1
       (deref_expression
         (identifier)
         (identifier))
-      (number
-        (integer)))))
+      (integer))))
 
 ==================
 Compound assignment
@@ -53,30 +51,24 @@ a %= 10
 (source_file
   (local_statement
     (identifier)
-    (number
+    (integer))
+  (expression_statement
+    (compound_assignment
+      (identifier)
       (integer)))
   (expression_statement
     (compound_assignment
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (expression_statement
     (compound_assignment
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (expression_statement
     (compound_assignment
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (expression_statement
     (compound_assignment
       (identifier)
-      (number
-        (integer))))
-  (expression_statement
-    (compound_assignment
-      (identifier)
-      (number
-        (integer)))))
+      (integer))))

@@ -12,23 +12,19 @@ local f = 0xAB_CD_01_23 // also underscores
 (source_file
   (local_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (comment)
   (local_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (comment)
   (local_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (comment)
   (local_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (comment))
 
 ==================
@@ -45,21 +41,17 @@ local d = 12.345_67e+2 // digit group separators
 (source_file
   (local_statement
     (identifier)
-    (number
-      (float)))
+    (float))
   (local_statement
     (identifier)
-    (number
-      (float)))
+    (float))
   (local_statement
     (identifier)
-    (number
-      (float)))
+    (float))
   (comment)
   (local_statement
     (identifier)
-    (number
-      (float)))
+    (float))
   (comment))
 
 ==================
@@ -74,18 +66,15 @@ local c = 10, d = 20
 (source_file
   (local_statement
     (identifier)
-    (number
-      (integer))
+    (integer)
     (identifier)
-    (number
-      (integer)))
+    (integer))
+  (empty_statement)
   (local_statement
     (identifier)
-    (number
-      (integer))
+    (integer)
     (identifier)
-    (number
-      (integer))))
+    (integer)))
 
 ==================
 Simple string declaration
@@ -104,7 +93,8 @@ let b = "I'm a wonderful string\n {This is nothing special}"
   (let_statement
     (identifier)
     (string
-      (simple_string))))
+      (simple_string
+        (escape_sequence)))))
 
 ==================
 Interpolated string declaration
@@ -124,7 +114,6 @@ let d = $"a = {a}"
     (identifier)
     (string
       (interpolated_string
-        (interpolated_string_content)
         (interpolation
           (identifier))))))
 
@@ -168,19 +157,16 @@ let c = [123, "string", "", 2.0]
   (let_statement
     (identifier)
     (array
-      (number
-        (integer))))
+      (integer)))
   (let_statement
     (identifier)
     (array
-      (number
-        (integer))
+      (integer)
       (string
         (simple_string))
       (string
         (simple_string))
-      (number
-        (float)))))
+      (float))))
 
 ==================
 Table declaration
@@ -211,8 +197,7 @@ let x = {
 (source_file
   (let_statement
     (identifier)
-    (number
-      (integer)))
+    (integer))
   (let_statement
     (identifier)
     (table))
@@ -220,8 +205,7 @@ let x = {
     (identifier)
     (table
       (identifier)
-      (number
-        (integer))
+      (integer)
       (identifier)
       (string
         (simple_string))))
@@ -234,8 +218,7 @@ let x = {
   (let_statement
     (identifier)
     (table
-      (number
-        (integer))
+      (integer)
       (string
         (simple_string))))
   (let_statement
@@ -243,16 +226,14 @@ let x = {
     (table
       (string
         (simple_string))
-      (number
-        (integer))
+      (integer)
       (string
         (simple_string))
       (string
         (simple_string))
       (string
         (simple_string))
-      (number
-        (integer))
+      (integer)
       (string
         (simple_string))
       (array
@@ -281,10 +262,8 @@ local a
     (let_statement
       (identifier)
       (add
-        (number
-          (integer))
-        (number
-          (integer))))
+        (integer)
+        (integer)))
     (expression_statement
       (assignment
         (identifier)

@@ -12,11 +12,9 @@ let mdist = a.x + a.y
     (identifier)
     (table
       (identifier)
-      (number
-        (integer))
+      (integer)
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (let_statement
     (identifier)
     (add
@@ -41,11 +39,9 @@ let mdist = a.x + a.y + (a?.z ?? 0)
     (identifier)
     (table
       (identifier)
-      (number
-        (integer))
+      (integer)
       (identifier)
-      (number
-        (integer))))
+      (integer)))
   (let_statement
     (identifier)
     (add
@@ -61,8 +57,7 @@ let mdist = a.x + a.y + (a?.z ?? 0)
           (nullable_deref_expression
             (identifier)
             (identifier))
-          (number
-            (integer)))))))
+          (integer))))))
 
 ==================
 Index
@@ -77,16 +72,13 @@ let b = a[0]
   (let_statement
     (identifier)
     (array
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (let_statement
     (identifier)
     (index_expression
       (identifier)
-      (number
-        (integer)))))
+      (integer))))
 
 ==================
 Nullable index
@@ -101,13 +93,10 @@ let b = a?[0]
   (let_statement
     (identifier)
     (array
-      (number
-        (integer))
-      (number
-        (integer))))
+      (integer)
+      (integer)))
   (let_statement
     (identifier)
     (nullable_index_expression
       (identifier)
-      (number
-        (integer)))))
+      (integer))))

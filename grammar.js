@@ -26,6 +26,10 @@ const PREC = {
   MEMBER: 16,
 };
 
+function commaSep1(rule) {
+  return seq(rule, repeat(seq(',', rule)))
+}
+
 module.exports = grammar({
   name: "quirrel",
 
@@ -37,15 +41,17 @@ module.exports = grammar({
   word: $ => $.identifier,
 
   supertypes: $ => [
-    $.expression,
     $.statement,
-    $.binary_expression
+    $.expression,
+    $.binary_expression,
+    $.number,
   ],
 
   rules: {
     source_file: $ => repeat($.statement),
 
     statement: $ => choice(
+      $.empty_statement,
       $.block,
       $.local_statement,
       $.let_statement,
@@ -53,20 +59,21 @@ module.exports = grammar({
       $.while_statement,
       $.do_while_statement,
       $.switch_statement,
+      $.for_statement,
+      $.foreach_statement,
       $.continue,
       $.break,
       $.return,
-      $.expression_statement
+      $.yeld,
+      $.expression_statement,
     ),
+
+    empty_statement: $ => ";",
 
     block: $ => prec(PREC.PAREN, seq('{', repeat($.statement), '}')),
 
-    local_statement: $ => prec.right(seq('local', $._initVar, optional(';'))),
-    _initVar: $ => seq(
-      $.identifier,
-      optional(seq('=', $.expression)),
-      optional(seq(',', $._initVar)),
-    ),
+    local_statement: $ => prec.left(seq('local', commaSep1($._initVar), optional(';'))),
+    _initVar: $ => seq($.identifier, optional(seq('=', $.expression))),
 
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
 
@@ -84,18 +91,33 @@ module.exports = grammar({
     case_statement: $ => seq("case", $.expression, ":", repeat($.statement)),
     default_statement: $ => seq("default", ":", repeat($.statement)),
 
+    for_statement: $ => seq("for", "(",
+      optional(choice($.expression, $.local_statement)),
+      ";",
+      optional($.expression),
+      ";",
+      optional($.expression),
+      ")",
+      $.statement
+    ),
+
+    foreach_statement: $ => seq("foreach", "(",
+      optional(seq($.identifier, ",")),
+      $.identifier,
+      "in",
+      $.expression,
+      ")",
+      $.statement
+    ),
+
     continue: $ => "continue",
     break: $ => "break",
-    return: $ => prec.right(seq(
-      'return',
-      optional($.expression),
-      optional(';'),
-    )),
+    return: $ => prec.right(seq('return', optional($.expression))),
 
-    expression_statement: $ => prec.left(choice(
-      seq($.expression, optional(';')),
-      ';',
-    )),
+    yeld: $ => prec.right(seq('yeld', optional($.expression))),
+    resume_expression: $ => prec.right(seq('resume', optional($.expression))),
+
+    expression_statement: $ => $.expression,
 
     expression: $ => choice(
       $.null,
@@ -118,6 +140,7 @@ module.exports = grammar({
       $.parenthesized_expression,
       $.unary_expression,
       $.binary_expression,
+      $.resume_expression,
     ),
 
     null: $ => 'null',
@@ -138,14 +161,15 @@ module.exports = grammar({
 
     string: $ => choice($.simple_string, $.interpolated_string, $.verbatim_string),
 
-    _string_content: $ => /[^"]+/,
-    interpolated_string_content: $ => /[^"{}]+/,
-    simple_string: $ => seq('"', optional($._string_content), '"'),
-    interpolated_string: $ => seq('$"', repeat(choice($.interpolation, $.interpolated_string_content)), '"'),
+    escape_sequence: $ => token.immediate(seq("\\", /./)),
+    _string_content: $ => token.immediate(/[^"\\\n]+/),
+    _interpolated_string_content: $ => token.immediate(/[^"{}\\\n]+/),
+    simple_string: $ => seq('"', repeat(choice( $._string_content, $.escape_sequence )), '"'),
+    interpolated_string: $ => seq('$"', repeat(choice( $.interpolation, $.escape_sequence, $._interpolated_string_content )), '"'),
     interpolation: $ => seq("{", $.expression, "}"),
 
-    verbatim_string: $ => seq('@"', repeat(choice($._string_content, $._verbatim_quotes)), '"'),
-    _verbatim_quotes: $ => seq('""', optional($._string_content), '""'),
+    verbatim_string: $ => seq('@"', repeat(choice(token.immediate(/[^"]+/), $._verbatim_quote_escape)), '"'),
+    _verbatim_quote_escape: $ => token.immediate('""'),
 
     boolean: $ => choice("true", "false"),
 
