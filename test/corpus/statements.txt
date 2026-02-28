@@ -1,4 +1,83 @@
 ==================
+const statement
+==================
+
+const foobar = 100
+const floatbar = 1.2
+const stringbar = "I'm a constant string"
+const nullconst = null
+const compound = { a = 10, b = "string", c = 1.2, d = [null, 555], e = [1,2,3] }
+const another = foobar
+const nested = compound.d[1]
+const evaluated = foobar + (("a" in compound) ? compound.e[0] : (nullconst ?? floatbar))
+
+---
+
+(source_file
+  (const_statement
+    (identifier)
+    (integer))
+  (const_statement
+    (identifier)
+    (float))
+  (const_statement
+    (identifier)
+    (string
+      (simple_string)))
+  (const_statement
+    (identifier)
+    (null))
+  (const_statement
+    (identifier)
+    (table
+      (identifier)
+      (integer)
+      (identifier)
+      (string
+        (simple_string))
+      (identifier)
+      (float)
+      (identifier)
+      (array
+        (null)
+        (integer))
+      (identifier)
+      (array
+        (integer)
+        (integer)
+        (integer))))
+  (const_statement
+    (identifier)
+    (identifier))
+  (const_statement
+    (identifier)
+    (index_expression
+      (deref_expression
+        (identifier)
+        (identifier))
+      (integer)))
+  (const_statement
+    (identifier)
+    (add
+      (identifier)
+      (parenthesized_expression
+        (ternary_expression
+          (parenthesized_expression
+            (in
+              (string
+                (simple_string))
+              (identifier)))
+          (index_expression
+            (deref_expression
+              (identifier)
+              (identifier))
+            (integer))
+          (parenthesized_expression
+            (null_coalescing
+              (identifier)
+              (identifier))))))))
+
+==================
 if statement
 ==================
 

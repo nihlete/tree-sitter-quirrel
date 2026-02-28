@@ -186,6 +186,10 @@
         "named": true
       },
       {
+        "type": "ternary_expression",
+        "named": true
+      },
+      {
         "type": "unary_expression",
         "named": true
       }
@@ -215,6 +219,10 @@
       },
       {
         "type": "break",
+        "named": true
+      },
+      {
+        "type": "const_statement",
         "named": true
       },
       {
@@ -470,6 +478,21 @@
   },
   {
     "type": "compound_assignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "const_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -1195,6 +1218,21 @@
     }
   },
   {
+    "type": "ternary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "three_way",
     "named": true,
     "fields": {},
@@ -1431,6 +1469,10 @@
     "named": false
   },
   {
+    "type": "?",
+    "named": false
+  },
+  {
     "type": "?.",
     "named": false
   },
@@ -1478,6 +1520,10 @@
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "const",
+    "named": false
   },
   {
     "type": "continue",

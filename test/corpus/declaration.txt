@@ -320,3 +320,27 @@ let h = @(x, y) x + y
       (add
         (identifier)
         (identifier)))))
+
+==================
+Ternary
+==================
+
+let a = data.t == 1 ? data.first : data.second
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (ternary_expression
+      (equal
+        (deref_expression
+          (identifier)
+          (identifier))
+        (integer))
+      (deref_expression
+        (identifier)
+        (identifier))
+      (deref_expression
+        (identifier)
+        (identifier)))))

@@ -10,20 +10,21 @@
 const PREC = {
   PAREN: 1,
   ASSIGN: 2,
-  NULL_COALESCING: 3,
-  LOGICAL_OR: 4,
-  LOGICAL_AND: 5,
-  BITWISE_OR: 6,
-  BITWISE_XOR: 7,
-  BITWISE_AND: 8,
-  EQUALITY: 9,
-  COMPARISON: 10,
-  SHIFT: 11,
-  ADDITIVE: 12,
-  MULTIPLICATIVE: 13,
-  UNARY: 14,
-  CALL: 15,
-  MEMBER: 16,
+  TERNARY: 3,
+  NULL_COALESCING: 4,
+  LOGICAL_OR: 5,
+  LOGICAL_AND: 6,
+  BITWISE_OR: 7,
+  BITWISE_XOR: 8,
+  BITWISE_AND: 9,
+  EQUALITY: 10,
+  COMPARISON: 11,
+  SHIFT: 12,
+  ADDITIVE: 13,
+  MULTIPLICATIVE: 14,
+  UNARY: 15,
+  CALL: 16,
+  MEMBER: 17,
 };
 
 function commaSep1(rule) {
@@ -59,6 +60,7 @@ module.exports = grammar({
       $.block,
       $.local_statement,
       $.let_statement,
+      $.const_statement,
       $.if_statement,
       $.while_statement,
       $.do_while_statement,
@@ -78,10 +80,12 @@ module.exports = grammar({
 
     block: $ => prec(PREC.PAREN, seq('{', repeat($.statement), '}')),
 
-    local_statement: $ => prec.left(seq('local', commaSep1($._initVar), optional(';'))),
+    local_statement: $ => prec.left(seq('local', commaSep1($._initVar))),
     _initVar: $ => seq($.identifier, optional(seq('=', $.expression))),
 
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
+
+    const_statement: $ => seq("const", $.identifier, "=", $.expression),
 
     if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
@@ -139,6 +143,7 @@ module.exports = grammar({
       $.function,
       $.lambda,
       $.call_expression,
+      $.ternary_expression,
       $.assignment,
       $.member_assignment,
       $.compound_assignment,
@@ -198,6 +203,8 @@ module.exports = grammar({
     vaiadic_param: $ => seq(optional(","), "..."),
 
     call_expression: $ => prec(PREC.CALL, seq($.expression, "(", commaSep($.expression), ")")),
+
+    ternary_expression: $ => prec.right(PREC.TERNARY, seq($.expression, '?', $.expression, ':', $.expression)),
 
     assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '=', $.expression)),
     member_assignment: $ => prec.right(PREC.ASSIGN, seq($.expression, '<-', $.expression)),
