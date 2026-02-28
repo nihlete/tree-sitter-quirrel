@@ -504,3 +504,40 @@ foo(1, 2, 3)
       (integer)
       (integer)
       (integer))))
+
+==================
+enum statement
+==================
+
+enum Stuff1 {
+  first, //this will be 0
+  second, //this will be 1
+  third //this will be 2
+}
+
+enum Stuff2 {
+  first = 10
+  second = "string"
+  third = 1.2
+}
+
+---
+
+(source_file
+  (enum_statement
+    (identifier)
+    (identifier)
+    (comment)
+    (identifier)
+    (comment)
+    (identifier)
+    (comment))
+  (enum_statement
+    (identifier)
+    (identifier)
+    (integer)
+    (identifier)
+    (string
+      (simple_string))
+    (identifier)
+    (float)))

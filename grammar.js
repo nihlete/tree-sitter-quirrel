@@ -48,6 +48,7 @@ module.exports = grammar({
   supertypes: $ => [
     $.statement,
     $.expression,
+    $.primary_expression,
     $.binary_expression,
     $.number,
   ],
@@ -61,6 +62,7 @@ module.exports = grammar({
       $.local_statement,
       $.let_statement,
       $.const_statement,
+      $.enum_statement,
       $.if_statement,
       $.while_statement,
       $.do_while_statement,
@@ -86,6 +88,7 @@ module.exports = grammar({
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
 
     const_statement: $ => seq("const", $.identifier, "=", $.expression),
+    enum_statement: $ => seq("enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
 
     if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
@@ -133,6 +136,14 @@ module.exports = grammar({
     expression_statement: $ => $.expression,
 
     expression: $ => choice(
+      $.assignment,
+      $.member_assignment,
+      $.compound_assignment,
+      $.resume_expression,
+      $.primary_expression
+    ),
+
+    primary_expression: $ => choice(
       $.null,
       $.identifier,
       $.number,
@@ -144,9 +155,6 @@ module.exports = grammar({
       $.lambda,
       $.call_expression,
       $.ternary_expression,
-      $.assignment,
-      $.member_assignment,
-      $.compound_assignment,
       $.deref_expression,
       $.index_expression,
       $.nullable_index_expression,
@@ -154,7 +162,6 @@ module.exports = grammar({
       $.parenthesized_expression,
       $.unary_expression,
       $.binary_expression,
-      $.resume_expression,
     ),
 
     null: $ => 'null',
@@ -202,7 +209,7 @@ module.exports = grammar({
     param: $ => seq($.identifier, optional(seq('=', $.expression))),
     vaiadic_param: $ => seq(optional(","), "..."),
 
-    call_expression: $ => prec(PREC.CALL, seq($.expression, "(", commaSep($.expression), ")")),
+    call_expression: $ => prec.left(PREC.CALL, seq($.expression, "(", commaSep($.expression), ")")),
 
     ternary_expression: $ => prec.right(PREC.TERNARY, seq($.expression, '?', $.expression, ':', $.expression)),
 

@@ -106,11 +106,47 @@
     "named": true,
     "subtypes": [
       {
-        "type": "array",
+        "type": "assignment",
         "named": true
       },
       {
-        "type": "assignment",
+        "type": "compound_assignment",
+        "named": true
+      },
+      {
+        "type": "member_assignment",
+        "named": true
+      },
+      {
+        "type": "primary_expression",
+        "named": true
+      },
+      {
+        "type": "resume_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "number",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "float",
+        "named": true
+      },
+      {
+        "type": "integer",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "primary_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "array",
         "named": true
       },
       {
@@ -123,10 +159,6 @@
       },
       {
         "type": "call_expression",
-        "named": true
-      },
-      {
-        "type": "compound_assignment",
         "named": true
       },
       {
@@ -150,10 +182,6 @@
         "named": true
       },
       {
-        "type": "member_assignment",
-        "named": true
-      },
-      {
         "type": "null",
         "named": true
       },
@@ -174,10 +202,6 @@
         "named": true
       },
       {
-        "type": "resume_expression",
-        "named": true
-      },
-      {
         "type": "string",
         "named": true
       },
@@ -191,20 +215,6 @@
       },
       {
         "type": "unary_expression",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "number",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "float",
-        "named": true
-      },
-      {
-        "type": "integer",
         "named": true
       }
     ]
@@ -235,6 +245,10 @@
       },
       {
         "type": "empty_statement",
+        "named": true
+      },
+      {
+        "type": "enum_statement",
         "named": true
       },
       {
@@ -502,6 +516,10 @@
         {
           "type": "expression",
           "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
         }
       ]
     }
@@ -531,6 +549,10 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -591,6 +613,25 @@
     "fields": {}
   },
   {
+    "type": "enum_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "equal",
     "named": true,
     "fields": {},
@@ -649,6 +690,10 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         },
         {
@@ -851,6 +896,10 @@
         {
           "type": "expression",
           "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
         }
       ]
     }
@@ -865,6 +914,10 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1031,6 +1084,10 @@
         {
           "type": "expression",
           "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
         }
       ]
     }
@@ -1060,6 +1117,10 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1212,6 +1273,14 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -1539,6 +1608,10 @@
   },
   {
     "type": "else",
+    "named": false
+  },
+  {
+    "type": "enum",
     "named": false
   },
   {
