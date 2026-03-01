@@ -276,6 +276,7 @@ Function
 function() {}
 function f(x) { return x }
 function g(x, ...) { return x }
+function [pure] test(a, b) { return a + b }
 
 ---
 
@@ -299,13 +300,28 @@ function g(x, ...) { return x }
       (vaiadic_param)
       (block
         (return
-          (identifier))))))
+          (identifier)))))
+  (expression_statement
+    (function
+      (attributes
+        (attribute))
+      (identifier)
+      (param
+        (identifier))
+      (param
+        (identifier))
+      (block
+        (return
+          (add
+            (identifier)
+            (identifier)))))))
 
 ==================
 Lambda
 ==================
 
 let h = @(x, y) x + y
+@[pure](a, b) a + b
 
 ---
 
@@ -313,6 +329,17 @@ let h = @(x, y) x + y
   (let_statement
     (identifier)
     (lambda
+      (param
+        (identifier))
+      (param
+        (identifier))
+      (add
+        (identifier)
+        (identifier))))
+  (expression_statement
+    (lambda
+      (attributes
+        (attribute))
       (param
         (identifier))
       (param

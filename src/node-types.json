@@ -182,6 +182,14 @@
         "named": true
       },
       {
+        "type": "inline_const_expression",
+        "named": true
+      },
+      {
+        "type": "inline_static_expression",
+        "named": true
+      },
+      {
         "type": "lambda",
         "named": true
       },
@@ -345,6 +353,21 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attributes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
           "named": true
         }
       ]
@@ -716,6 +739,10 @@
       "required": true,
       "types": [
         {
+          "type": "attributes",
+          "named": true
+        },
+        {
           "type": "block",
           "named": true
         },
@@ -833,6 +860,36 @@
     }
   },
   {
+    "type": "inline_const_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "primary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_static_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "primary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "instanceof",
     "named": true,
     "fields": {},
@@ -889,6 +946,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attributes",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -1577,11 +1638,11 @@
     "named": false
   },
   {
-    "type": "@\"",
+    "type": "@",
     "named": false
   },
   {
-    "type": "@(",
+    "type": "@\"",
     "named": false
   },
   {
@@ -1595,6 +1656,10 @@
   {
     "type": "^",
     "named": false
+  },
+  {
+    "type": "attribute",
+    "named": true
   },
   {
     "type": "break",
@@ -1707,6 +1772,10 @@
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "static",
     "named": false
   },
   {

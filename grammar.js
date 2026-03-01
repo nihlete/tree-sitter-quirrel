@@ -23,8 +23,9 @@ const PREC = {
   ADDITIVE: 13,
   MULTIPLICATIVE: 14,
   UNARY: 15,
-  CALL: 16,
-  MEMBER: 17,
+  CONST: 17,
+  CALL: 18,
+  MEMBER: 19,
 };
 
 function commaSep1(rule) {
@@ -87,7 +88,7 @@ module.exports = grammar({
 
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
 
-    const_statement: $ => seq(optional("global"), "const", $.identifier, "=", $.expression),
+    const_statement: $ => prec(1, seq(optional("global"), "const", $.identifier, "=", $.expression)),
     enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
 
     if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
@@ -161,6 +162,8 @@ module.exports = grammar({
       $.nullable_index_expression,
       $.nullable_deref_expression,
       $.parenthesized_expression,
+      $.inline_const_expression,
+      $.inline_static_expression,
       $.unary_expression,
       $.binary_expression,
     ),
@@ -206,10 +209,12 @@ module.exports = grammar({
       seq($.string , ':', $.expression),
     )),
 
-    function: $ => seq('function', optional($.identifier), '(', commaSep($.param), optional($.vaiadic_param), ')', $.block),
-    lambda: $ => seq('@(', commaSep($.param), optional($.vaiadic_param), ')', $.expression),
+    function: $ => seq('function', optional($.attributes), optional($.identifier),
+      '(', commaSep($.param), optional($.vaiadic_param), ')', $.block),
+    lambda: $ => seq("@", optional($.attributes), "(", commaSep($.param), optional($.vaiadic_param), ")", $.expression),
     param: $ => seq($.identifier, optional(seq('=', $.expression))),
     vaiadic_param: $ => seq(optional(","), "..."),
+    attributes: $ => seq("[", commaSep1(alias($.identifier, $.attribute)), "]"),
 
     call_expression: $ => prec.left(PREC.CALL, seq($.expression, "(", commaSep($.expression), ")")),
 
@@ -235,6 +240,9 @@ module.exports = grammar({
     nullable_index_expression: $ => prec(PREC.MEMBER, seq($.expression, '?[', $.expression, ']')),
 
     parenthesized_expression: $ => prec(PREC.PAREN, seq('(', $.expression, ')')),
+
+    inline_const_expression: $ => prec(PREC.CONST, seq("const", $.primary_expression)),
+    inline_static_expression: $ => prec(PREC.CONST, seq("static", $.primary_expression)),
 
     unary_expression: $ => choice(
       $._unary_post_expression,
