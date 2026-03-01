@@ -78,6 +78,73 @@ const evaluated = foobar + (("a" in compound) ? compound.e[0] : (nullconst ?? fl
               (identifier))))))))
 
 ==================
+root-table access
+==================
+
+global const foo = 0
+if ("foo" not in getconsttable())
+  global const foo = 1
+print(foo) //prints 1
+
+---
+
+(source_file
+  (const_statement
+    (identifier)
+    (integer))
+  (if_statement
+    (not_in
+      (string
+        (simple_string))
+      (call_expression
+        (identifier)))
+    (const_statement
+      (identifier)
+      (integer)))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (identifier)))
+  (comment))
+
+==================
+global const statement
+==================
+
+let PI = ::PI
+let makeColor = ::makeColor
+local mulColors = ::mulColors
+::getParamsList <- function() {}
+::print(PI)
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (global_identifier
+      (identifier)))
+  (let_statement
+    (identifier)
+    (global_identifier
+      (identifier)))
+  (local_statement
+    (identifier)
+    (global_identifier
+      (identifier)))
+  (expression_statement
+    (member_assignment
+      (global_identifier
+        (identifier))
+      (function
+        (block))))
+  (expression_statement
+    (call_expression
+      (global_identifier
+        (identifier))
+      (identifier))))
+
+==================
 if statement
 ==================
 
@@ -515,7 +582,7 @@ enum Stuff1 {
   third //this will be 2
 }
 
-enum Stuff2 {
+global enum Stuff2 {
   first = 10
   second = "string"
   third = 1.2

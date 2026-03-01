@@ -170,6 +170,10 @@
         "named": true
       },
       {
+        "type": "global_identifier",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
@@ -725,6 +729,21 @@
         },
         {
           "type": "vaiadic_param",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "global_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1490,6 +1509,10 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -1636,6 +1659,10 @@
   },
   {
     "type": "function",
+    "named": false
+  },
+  {
+    "type": "global",
     "named": false
   },
   {

@@ -87,8 +87,8 @@ module.exports = grammar({
 
     let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
 
-    const_statement: $ => seq("const", $.identifier, "=", $.expression),
-    enum_statement: $ => seq("enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
+    const_statement: $ => seq(optional("global"), "const", $.identifier, "=", $.expression),
+    enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
 
     if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
@@ -146,6 +146,7 @@ module.exports = grammar({
     primary_expression: $ => choice(
       $.null,
       $.identifier,
+      $.global_identifier,
       $.number,
       $.string,
       $.boolean,
@@ -167,6 +168,7 @@ module.exports = grammar({
     null: $ => 'null',
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    global_identifier: $ => seq('::', $.identifier),
 
     number: $ => choice($.integer, $.float),
 
