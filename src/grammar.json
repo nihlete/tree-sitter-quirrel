@@ -176,6 +176,18 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SEQ",
               "members": [
                 {
@@ -208,6 +220,18 @@
           {
             "type": "SYMBOL",
             "name": "identifier"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "type_annotation"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "STRING",
@@ -1434,7 +1458,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "vaiadic_param"
+              "name": "variadic_param"
             },
             {
               "type": "BLANK"
@@ -1444,6 +1468,18 @@
         {
           "type": "STRING",
           "value": ")"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -1520,7 +1556,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "vaiadic_param"
+              "name": "variadic_param"
             },
             {
               "type": "BLANK"
@@ -1530,6 +1566,18 @@
         {
           "type": "STRING",
           "value": ")"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -1543,6 +1591,18 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -1567,7 +1627,7 @@
         }
       ]
     },
-    "vaiadic_param": {
+    "variadic_param": {
       "type": "SEQ",
       "members": [
         {
@@ -1585,6 +1645,18 @@
         {
           "type": "STRING",
           "value": "..."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type_annotation"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -1641,6 +1713,147 @@
         {
           "type": "STRING",
           "value": "]"
+        }
+      ]
+    },
+    "type_annotation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_expression"
+        }
+      ]
+    },
+    "type_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "type_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_parenthesized_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_pipe_expression"
+        }
+      ]
+    },
+    "type_parenthesized_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "type_pipe_expression": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "type_expression"
+          },
+          {
+            "type": "STRING",
+            "value": "|"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "type_expression"
+          }
+        ]
+      }
+    },
+    "type_declaration": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "int"
+        },
+        {
+          "type": "STRING",
+          "value": "float"
+        },
+        {
+          "type": "STRING",
+          "value": "number"
+        },
+        {
+          "type": "STRING",
+          "value": "bool"
+        },
+        {
+          "type": "STRING",
+          "value": "string"
+        },
+        {
+          "type": "STRING",
+          "value": "table"
+        },
+        {
+          "type": "STRING",
+          "value": "array"
+        },
+        {
+          "type": "STRING",
+          "value": "function"
+        },
+        {
+          "type": "STRING",
+          "value": "thread"
+        },
+        {
+          "type": "STRING",
+          "value": "userdata"
+        },
+        {
+          "type": "STRING",
+          "value": "generator"
+        },
+        {
+          "type": "STRING",
+          "value": "userpointer"
+        },
+        {
+          "type": "STRING",
+          "value": "instance"
+        },
+        {
+          "type": "STRING",
+          "value": "class"
+        },
+        {
+          "type": "STRING",
+          "value": "weakref"
+        },
+        {
+          "type": "STRING",
+          "value": "null"
+        },
+        {
+          "type": "STRING",
+          "value": "any"
         }
       ]
     },
@@ -2709,6 +2922,7 @@
     "expression",
     "primary_expression",
     "binary_expression",
+    "type_expression",
     "number"
   ],
   "reserved": {}

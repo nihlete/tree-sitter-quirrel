@@ -297,7 +297,7 @@ function [pure] test(a, b) { return a + b }
       (identifier)
       (param
         (identifier))
-      (vaiadic_param)
+      (variadic_param)
       (block
         (return
           (identifier)))))

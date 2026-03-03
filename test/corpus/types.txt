@@ -1,0 +1,206 @@
+==================
+local declaration
+==================
+
+local value: int|float = 42
+local maybeString: string|null = null
+local numeric: number = 3.14  // equivalent to int|float
+
+local y: (string | table | null) = {}
+
+---
+
+(source_file
+  (local_statement
+    (identifier)
+    (type_annotation
+      (type_pipe_expression
+        (type_declaration)
+        (type_declaration)))
+    (integer))
+  (local_statement
+    (identifier)
+    (type_annotation
+      (type_pipe_expression
+        (type_declaration)
+        (type_declaration)))
+    (null))
+  (local_statement
+    (identifier)
+    (type_annotation
+      (type_declaration))
+    (float))
+  (comment)
+  (local_statement
+    (identifier)
+    (type_annotation
+      (type_parenthesized_expression
+        (type_pipe_expression
+          (type_pipe_expression
+            (type_declaration)
+            (type_declaration))
+          (type_declaration))))
+    (table)))
+
+==================
+let declaration
+==================
+
+let pi: float = 3.14159
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (type_annotation
+      (type_declaration))
+    (float)))
+
+==================
+function parametrs and return types
+==================
+
+function add(x: int, y: int): int {
+  return x + y
+}
+
+function toString(value: any): string {
+  return value.tostring()
+}
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier)
+        (type_annotation
+          (type_declaration)))
+      (param
+        (identifier)
+        (type_annotation
+          (type_declaration)))
+      (type_annotation
+        (type_declaration))
+      (block
+        (return
+          (add
+            (identifier)
+            (identifier))))))
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier)
+        (type_annotation
+          (type_declaration)))
+      (type_annotation
+        (type_declaration))
+      (block
+        (return
+          (call_expression
+            (deref_expression
+              (identifier)
+              (identifier))))))))
+
+==================
+nullable parameters with defaults
+==================
+
+function greet(name: string|null = null): string {
+  return name ? "Hello " + name : "Hello guest"
+}
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier)
+        (type_annotation
+          (type_pipe_expression
+            (type_declaration)
+            (type_declaration)))
+        (null))
+      (type_annotation
+        (type_declaration))
+      (block
+        (return
+          (ternary_expression
+            (identifier)
+            (add
+              (string
+                (simple_string))
+              (identifier))
+            (string
+              (simple_string))))))))
+
+==================
+vararg type annotations
+==================
+
+function sum(first: number, ...: number): number {
+  local total = first
+  foreach (v in vargv) total += v
+  return total
+}
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier)
+        (type_annotation
+          (type_declaration)))
+      (variadic_param
+        (type_annotation
+          (type_declaration)))
+      (type_annotation
+        (type_declaration))
+      (block
+        (local_statement
+          (identifier)
+          (identifier))
+        (foreach_statement
+          (identifier)
+          (identifier)
+          (expression_statement
+            (compound_assignment
+              (identifier)
+              (identifier))))
+        (return
+          (identifier))))))
+
+==================
+Lambda/Anonymous Functions
+==================
+
+let multiply = @(x: int, y: int): int x * y
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (lambda
+      (param
+        (identifier)
+        (type_annotation
+          (type_declaration)))
+      (param
+        (identifier)
+        (type_annotation
+          (type_declaration)))
+      (type_annotation
+        (type_declaration))
+      (multiply
+        (identifier)
+        (identifier)))))

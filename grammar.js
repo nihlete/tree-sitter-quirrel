@@ -51,6 +51,7 @@ module.exports = grammar({
     $.expression,
     $.primary_expression,
     $.binary_expression,
+    $.type_expression,
     $.number,
   ],
 
@@ -84,9 +85,9 @@ module.exports = grammar({
     block: $ => prec(PREC.PAREN, seq('{', repeat($.statement), '}')),
 
     local_statement: $ => prec.left(seq('local', commaSep1($._initVar))),
-    _initVar: $ => seq($.identifier, optional(seq('=', $.expression))),
+    _initVar: $ => seq($.identifier, optional($.type_annotation), optional(seq('=', $.expression))),
 
-    let_statement: $ => prec.right(seq('let', $.identifier, '=', $.expression)),
+    let_statement: $ => prec.right(seq('let', $.identifier, optional($.type_annotation), '=', $.expression)),
 
     const_statement: $ => prec(1, seq(optional("global"), "const", $.identifier, "=", $.expression)),
     enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
@@ -210,11 +211,39 @@ module.exports = grammar({
     )),
 
     function: $ => seq('function', optional($.attributes), optional($.identifier),
-      '(', commaSep($.param), optional($.vaiadic_param), ')', $.block),
-    lambda: $ => seq("@", optional($.attributes), "(", commaSep($.param), optional($.vaiadic_param), ")", $.expression),
-    param: $ => seq($.identifier, optional(seq('=', $.expression))),
-    vaiadic_param: $ => seq(optional(","), "..."),
+      '(', commaSep($.param), optional($.variadic_param), ')', optional($.type_annotation), $.block),
+    lambda: $ => seq("@", optional($.attributes), "(", commaSep($.param), optional($.variadic_param), ")", optional($.type_annotation), $.expression),
+    param: $ => seq($.identifier, optional($.type_annotation), optional(seq('=', $.expression))),
+    variadic_param: $ => seq(optional(","), "...", optional($.type_annotation)),
     attributes: $ => seq("[", commaSep1(alias($.identifier, $.attribute)), "]"),
+
+    type_annotation: $ => seq(":", $.type_expression),
+    type_expression: $ => choice(
+      $.type_declaration,
+      $.type_parenthesized_expression,
+      $.type_pipe_expression
+    ),
+    type_parenthesized_expression: $ => seq("(", $.type_expression, ")"),
+    type_pipe_expression: $ => prec.left(seq($.type_expression, "|", $.type_expression)),
+    type_declaration: $ => choice(
+      "int",
+      "float",
+      "number",
+      "bool",
+      "string",
+      "table",
+      "array",
+      "function",
+      "thread",
+      "userdata",
+      "generator",
+      "userpointer",
+      "instance",
+      "class",
+      "weakref",
+      "null",
+      "any",
+    ),
 
     call_expression: $ => prec.left(PREC.CALL, seq($.expression, "(", commaSep($.expression), ")")),
 
