@@ -678,3 +678,146 @@ global enum Stuff2 {
       (simple_string))
     (identifier)
     (float)))
+
+==================
+array deconstruction
+==================
+
+let arr = [123, 567]
+local [a, b] = arr
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (array
+      (integer)
+      (integer)))
+  (destructuring_assigment
+    (array_deconstruction
+      (identifier)
+      (identifier))
+    (identifier)))
+
+==================
+table deconstruction
+==================
+
+function foo() {
+  return {x=555, y=777, z=999, w=111}
+}
+
+let {x, y=1, q=3} = foo()
+print(x) // => 555
+print(y) // => 777
+print(q) // => 3
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (identifier)
+      (block
+        (return
+          (table
+            (identifier)
+            (integer)
+            (identifier)
+            (integer)
+            (identifier)
+            (integer)
+            (identifier)
+            (integer))))))
+  (destructuring_assigment
+    (table_deconstruction
+      (identifier)
+      (identifier)
+      (integer)
+      (identifier)
+      (integer))
+    (call_expression
+      (identifier)))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (identifier)))
+  (comment)
+  (expression_statement
+    (call_expression
+      (identifier)
+      (identifier)))
+  (comment)
+  (expression_statement
+    (call_expression
+      (identifier)
+      (identifier)))
+  (comment))
+
+==================
+func param deconstruction
+==================
+
+function test1({x, y}, [a, b]) {
+  println(x, y, a, b)
+}
+
+function test2({x: int = 5}, [a: string, b: float = 2.2]) {
+  println(x, a, b)
+}
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (table_param_deconstruction
+          (param
+            (identifier))
+          (param
+            (identifier))))
+      (param
+        (array_param_deconstruction
+          (param
+            (identifier))
+          (param
+            (identifier))))
+      (block
+        (expression_statement
+          (call_expression
+            (identifier)
+            (identifier)
+            (identifier)
+            (identifier)
+            (identifier))))))
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (table_param_deconstruction
+          (param
+            (identifier)
+            (type_annotation
+              (type_declaration))
+            (integer))))
+      (param
+        (array_param_deconstruction
+          (param
+            (identifier)
+            (type_annotation
+              (type_declaration)))
+          (param
+            (identifier)
+            (type_annotation
+              (type_declaration))
+            (float))))
+      (block
+        (expression_statement
+          (call_expression
+            (identifier)
+            (identifier)
+            (identifier)
+            (identifier)))))))
