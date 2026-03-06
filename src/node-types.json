@@ -226,6 +226,10 @@
         "named": true
       },
       {
+        "type": "typeof_expression",
+        "named": true
+      },
+      {
         "type": "unary_expression",
         "named": true
       }
@@ -1644,6 +1648,21 @@
     }
   },
   {
+    "type": "typeof_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "primary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unary_expression",
     "named": true,
     "fields": {},
@@ -1955,11 +1974,11 @@
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "for",
@@ -2067,6 +2086,10 @@
   },
   {
     "type": "try",
+    "named": false
+  },
+  {
+    "type": "typeof",
     "named": false
   },
   {

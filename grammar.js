@@ -175,6 +175,7 @@ module.exports = grammar({
       $.inline_static_expression,
       $.unary_expression,
       $.binary_expression,
+      $.typeof_expression,
     ),
 
     null: $ => 'null',
@@ -347,6 +348,7 @@ module.exports = grammar({
     logical_or: $ => prec.left(PREC.LOGICAL_OR, seq($.expression, '||', $.expression)),
     null_coalescing: $ => prec.right(PREC.NULL_COALESCING, seq($.expression, '??', $.expression)),
 
+    typeof_expression: $ => prec(PREC.UNARY, seq("typeof", $.primary_expression)),
 
     compiler_directive: $ => seq("#", /.*/),
 

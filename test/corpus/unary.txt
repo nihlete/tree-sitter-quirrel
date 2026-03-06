@@ -80,3 +80,46 @@ let d = ++a++
     (unary_expression
       (unary_expression
         (identifier)))))
+
+==================
+typeof expression
+==================
+
+let stack = []
+local expr = ast
+do {
+    stack.append(expr);
+    expr = expr[0];
+} while (typeof expr == "array");
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (array))
+  (local_statement
+    (identifier)
+    (identifier))
+  (do_while_statement
+    (block
+      (expression_statement
+        (call_expression
+          (deref_expression
+            (identifier)
+            (identifier))
+          (identifier)))
+      (empty_statement)
+      (expression_statement
+        (assignment
+          (identifier)
+          (index_expression
+            (identifier)
+            (integer))))
+      (empty_statement))
+    (equal
+      (typeof_expression
+        (identifier))
+      (string
+        (simple_string))))
+  (empty_statement))
