@@ -19,6 +19,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "compiler_directive"
+        },
+        {
+          "type": "SYMBOL",
           "name": "block"
         },
         {
@@ -3103,6 +3107,19 @@
           }
         ]
       }
+    },
+    "compiler_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
     },
     "comment": {
       "type": "TOKEN",

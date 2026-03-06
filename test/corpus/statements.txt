@@ -821,3 +821,32 @@ function test2({x: int = 5}, [a: string, b: float = 2.2]) {
             (identifier)
             (identifier)
             (identifier)))))))
+
+==================
+Compiler directives
+==================
+
+#default:strict
+
+function foo() {
+  #relaxed-bool
+  if (123)
+    print("bar")
+}
+
+---
+
+(source_file
+  (compiler_directive)
+  (expression_statement
+    (function
+      (identifier)
+      (block
+        (compiler_directive)
+        (if_statement
+          (integer)
+          (expression_statement
+            (call_expression
+              (identifier)
+              (string
+                (simple_string)))))))))

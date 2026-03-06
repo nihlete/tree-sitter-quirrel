@@ -244,6 +244,10 @@
         "named": true
       },
       {
+        "type": "compiler_directive",
+        "named": true
+      },
+      {
         "type": "const_statement",
         "named": true
       },
@@ -576,6 +580,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "compiler_directive",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "compound_assignment",
@@ -1720,6 +1729,10 @@
     "named": false
   },
   {
+    "type": "#",
+    "named": false
+  },
+  {
     "type": "$\"",
     "named": false
   },
@@ -1942,11 +1955,11 @@
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "for",

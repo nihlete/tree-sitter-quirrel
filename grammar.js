@@ -60,6 +60,7 @@ module.exports = grammar({
 
     statement: $ => choice(
       $.empty_statement,
+      $.compiler_directive,
       $.block,
       $.local_statement,
       $.let_statement,
@@ -345,6 +346,9 @@ module.exports = grammar({
     logical_and: $ => prec.left(PREC.LOGICAL_AND, seq($.expression, '&&', $.expression)),
     logical_or: $ => prec.left(PREC.LOGICAL_OR, seq($.expression, '||', $.expression)),
     null_coalescing: $ => prec.right(PREC.NULL_COALESCING, seq($.expression, '??', $.expression)),
+
+
+    compiler_directive: $ => seq("#", /.*/),
 
     comment: $ =>
       token(
