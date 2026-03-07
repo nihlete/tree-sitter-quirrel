@@ -66,6 +66,7 @@ module.exports = grammar({
       $.let_statement,
       $.const_statement,
       $.enum_statement,
+      $.class_statement,
       $.destructuring_assigment,
       $.if_statement,
       $.while_statement,
@@ -99,6 +100,18 @@ module.exports = grammar({
 
     const_statement: $ => prec(1, seq(optional("global"), "const", $.identifier, "=", $.expression)),
     enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
+
+    class_statement: $ => seq("class", $.identifier, optional(seq("(", $.identifier, ")")),
+      "{", repeat(seq($._member_declaration, optional(";"))), "}"),
+    _member_declaration: $ => choice(
+      $.identifier,
+      seq(optional("static"), $.identifier, '=', $.expression),
+      seq('[', $.expression, ']', '=', $.expression),
+      seq($.string , ':', $.expression),
+      $.function,
+      $.constructor,
+    ),
+    constructor: $ => seq("constructor", "(", commaSep($.param), optional($.variadic_param), ")", $.block),
 
     if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
@@ -217,10 +230,11 @@ module.exports = grammar({
       seq($.identifier, '=', $.expression),
       seq('[', $.expression, ']', '=', $.expression),
       seq($.string , ':', $.expression),
+      $.function,
     )),
 
     function: $ => seq('function', optional($.attributes), optional($.identifier),
-      '(', commaSep($.param), optional($.variadic_param), ')', optional($.type_annotation), $.block),
+      "(", commaSep($.param), optional($.variadic_param), ")", optional($.type_annotation), $.block),
     lambda: $ => seq("@", optional($.attributes), "(", commaSep($.param), optional($.variadic_param), ")", optional($.type_annotation), $.expression),
     param: $ => choice(
       seq($.identifier, optional($.type_annotation), optional(seq('=', $.expression))),

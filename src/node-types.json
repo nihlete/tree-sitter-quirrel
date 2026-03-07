@@ -248,6 +248,10 @@
         "named": true
       },
       {
+        "type": "class_statement",
+        "named": true
+      },
+      {
         "type": "compiler_directive",
         "named": true
       },
@@ -586,6 +590,37 @@
     }
   },
   {
+    "type": "class_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constructor",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "function",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "compiler_directive",
     "named": true,
     "fields": {}
@@ -619,6 +654,29 @@
         },
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constructor",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "param",
+          "named": true
+        },
+        {
+          "type": "variadic_param",
           "named": true
         }
       ]
@@ -1485,6 +1543,10 @@
           "named": true
         },
         {
+          "type": "function",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -1945,6 +2007,10 @@
     "named": false
   },
   {
+    "type": "constructor",
+    "named": false
+  },
+  {
     "type": "continue",
     "named": true
   },
@@ -1974,11 +2040,11 @@
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "for",

@@ -243,6 +243,156 @@ let x = {
           (simple_string))))))
 
 ==================
+Class declaration
+==================
+
+class Foo {
+  //constructor
+  constructor(a) {
+      this.testy = ["stuff",1,2,3,a]
+  }
+  //member function
+  function PrintTesty() {
+      foreach(i,val in this.testy) {
+          print("idx = "+i+" = "+val)
+      }
+  }
+  //property
+  testy = null
+}
+
+---
+
+(source_file
+  (class_statement
+    (identifier)
+    (comment)
+    (constructor
+      (param
+        (identifier))
+      (block
+        (expression_statement
+          (assignment
+            (deref_expression
+              (identifier)
+              (identifier))
+            (array
+              (string
+                (simple_string))
+              (integer)
+              (integer)
+              (integer)
+              (identifier))))))
+    (comment)
+    (function
+      (identifier)
+      (block
+        (foreach_statement
+          (identifier)
+          (identifier)
+          (deref_expression
+            (identifier)
+            (identifier))
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (add
+                  (add
+                    (add
+                      (string
+                        (simple_string))
+                      (identifier))
+                    (string
+                      (simple_string)))
+                  (identifier))))))))
+    (comment)
+    (identifier)
+    (null)))
+
+==================
+Class static members
+==================
+
+class Foo {
+  constructor() {
+      //..stuff
+  }
+  name = "normal variable"
+  //static variable
+  static classname = "The class name is foo"
+};
+
+---
+
+(source_file
+  (class_statement
+    (identifier)
+    (constructor
+      (block
+        (comment)))
+    (identifier)
+    (string
+      (simple_string))
+    (comment)
+    (identifier)
+    (string
+      (simple_string)))
+  (empty_statement))
+
+==================
+Class inheritance
+==================
+
+class Foo {
+  function DoSomething() {
+      println("I'm the base")
+  }
+};
+
+class SuperFoo(Foo) {
+  //overridden method
+  function DoSomething() {
+      //calls the base method
+      base.DoSomething()
+      println("I'm doing something")
+  }
+}
+
+---
+
+(source_file
+  (class_statement
+    (identifier)
+    (function
+      (identifier)
+      (block
+        (expression_statement
+          (call_expression
+            (identifier)
+            (string
+              (simple_string)))))))
+  (empty_statement)
+  (class_statement
+    (identifier)
+    (identifier)
+    (comment)
+    (function
+      (identifier)
+      (block
+        (comment)
+        (expression_statement
+          (call_expression
+            (deref_expression
+              (identifier)
+              (identifier))))
+        (expression_statement
+          (call_expression
+            (identifier)
+            (string
+              (simple_string))))))))
+
+==================
 Block
 ==================
 
