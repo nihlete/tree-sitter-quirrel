@@ -1,0 +1,107 @@
+==================
+Test
+==================
+
+function sendLogToClients(log, connids=null){
+  let event = mkEventSqChatMessage(({name="dedicated", text=log}))
+  if (!has_network())
+    ecs.server_msg_sink(event, null)
+  else {
+    connids = connids==null ? (ecs.query_map(peersThatWantToReceiveQuery, getConnidForLogReceiver) ?? []) : connids
+    if (connids.len()>0)
+      ecs.server_msg_sink(event, connids)
+  }
+}
+
+---
+
+(source_file
+  (expression_statement
+    (function
+      (identifier)
+      (param
+        (identifier))
+      (param
+        (identifier)
+        (null))
+      (block
+        (let_statement
+          (identifier)
+          (call_expression
+            (identifier)
+            (parenthesized_expression
+              (table
+                (identifier)
+                (string
+                  (simple_string))
+                (identifier)
+                (identifier)))))
+        (if_statement
+          (unary_expression
+            (call_expression
+              (identifier)))
+          (expression_statement
+            (call_expression
+              (deref_expression
+                (identifier)
+                (identifier))
+              (identifier)
+              (null)))
+          (else_statement
+            (block
+              (expression_statement
+                (assignment
+                  (identifier)
+                  (ternary_expression
+                    (equal
+                      (identifier)
+                      (null))
+                    (parenthesized_expression
+                      (null_coalescing
+                        (call_expression
+                          (deref_expression
+                            (identifier)
+                            (identifier))
+                          (identifier)
+                          (identifier))
+                        (array)))
+                    (identifier))))
+              (if_statement
+                (gt
+                  (call_expression
+                    (deref_expression
+                      (identifier)
+                      (identifier)))
+                  (integer))
+                (expression_statement
+                  (call_expression
+                    (deref_expression
+                      (identifier)
+                      (identifier))
+                    (identifier)
+                    (identifier)))))))))))
+
+==================
+Test 2
+==================
+
+{
+  connids = connids0
+  if (true)
+    server_msg_sink(connids)
+}
+
+---
+
+(source_file
+  (block
+    (expression_statement
+      (assignment
+        (identifier)
+        (identifier)))
+    (if_statement
+      (boolean)
+      (expression_statement
+        (call_expression
+          (identifier)
+          (identifier))))))

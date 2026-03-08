@@ -251,10 +251,11 @@ else {
           (unary_expression
             (identifier)))
         (else_statement
-          (expression_statement
-            (table
-              (identifier)
-              (integer))))))))
+          (block
+            (expression_statement
+              (assignment
+                (identifier)
+                (integer)))))))))
 
 ==================
 while statement

@@ -8,6 +8,7 @@
 // @ts-check
 
 const PREC = {
+  TABLE_SLOT: -1,
   PAREN: 1,
   ASSIGN: 2,
   TERNARY: 3,
@@ -118,7 +119,7 @@ module.exports = grammar({
     ),
     constructor: $ => seq("constructor", "(", commaSep($.param), optional($.variadic_param), ")", $.block),
 
-    if_statement: $ => prec.right(1, seq("if", "(", $.expression, ")", choice($.statement, $.block), optional($.else_statement))),
+    if_statement: $ => prec.right(seq("if", "(", $.expression, ")", $.statement, optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
 
     while_statement: $ => seq("while", "(", $.expression, ")", $.statement),
@@ -229,8 +230,8 @@ module.exports = grammar({
 
     array: $ => seq('[', repeat(seq($.expression, optional(','))), ']'),
 
-    table: $ => prec.right(seq('{', repeat(seq($._table_slot, optional(','))), '}')),
-    _table_slot: $ => prec(PREC.ASSIGN, choice(
+    table: $ => seq('{', repeat(seq($._table_slot, optional(','))), '}'),
+    _table_slot: $ => prec(PREC.TABLE_SLOT, choice(
       $.identifier,
       seq($.identifier, '=', $.expression),
       seq('[', $.expression, ']', '=', $.expression),

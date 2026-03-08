@@ -403,6 +403,10 @@ local a
   a = b
 }
 
+{}
+
+{{}}
+
 ---
 
 (source_file
@@ -417,7 +421,10 @@ local a
     (expression_statement
       (assignment
         (identifier)
-        (identifier)))))
+        (identifier))))
+  (block)
+  (block
+    (block)))
 
 ==================
 Function
