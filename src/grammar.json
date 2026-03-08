@@ -1531,7 +1531,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[0-9_]+\\.[0-9_]+"
+            "value": "[0-9_]+\\.[0-9_]*"
           },
           {
             "type": "PATTERN",

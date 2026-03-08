@@ -32,6 +32,7 @@ Float declaration
 ==================
 
 local a = 1.0
+local a0 = 1.
 local b = 0.234
 local c = 6.5e-11 //exponential notation
 local d = 12.345_67e+2 // digit group separators
@@ -39,6 +40,9 @@ local d = 12.345_67e+2 // digit group separators
 ---
 
 (source_file
+  (local_statement
+    (identifier)
+    (float))
   (local_statement
     (identifier)
     (float))
