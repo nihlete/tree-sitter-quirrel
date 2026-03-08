@@ -77,6 +77,24 @@ local c = 10, d = 20
     (integer)))
 
 ==================
+Char declaration
+==================
+
+let a = 'a'
+let newLine = '\n'
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (char))
+  (let_statement
+    (identifier)
+    (char
+      (escape_sequence))))
+
+==================
 Simple string declaration
 ==================
 

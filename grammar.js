@@ -177,6 +177,7 @@ module.exports = grammar({
       $.identifier,
       $.global_identifier,
       $.number,
+      $.char,
       $.string,
       $.boolean,
       $.array,
@@ -217,6 +218,7 @@ module.exports = grammar({
       /[0-9_]+\.[0-9_]*[eE][+-]?[0-9_]+/,
     )),
 
+    char: $ => seq("'",choice( $.escape_sequence, /[^\\']/ ), "'"),
     string: $ => choice($.simple_string, $.interpolated_string, $.verbatim_string),
 
     escape_sequence: $ => token.immediate(seq("\\", /./)),
