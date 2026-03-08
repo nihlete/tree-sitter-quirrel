@@ -116,6 +116,7 @@ module.exports = grammar({
       seq($.string , ':', $.expression),
       $.function,
       $.constructor,
+      $.doc_string,
     ),
     constructor: $ => seq("constructor", "(", commaSep($.param), optional($.variadic_param), ")", $.block),
 
@@ -219,7 +220,7 @@ module.exports = grammar({
     )),
 
     char: $ => seq("'",choice( $.escape_sequence, /[^\\']/ ), "'"),
-    string: $ => choice($.simple_string, $.interpolated_string, $.verbatim_string),
+    string: $ => choice($.simple_string, $.interpolated_string, $.verbatim_string, $.doc_string),
 
     escape_sequence: $ => token.immediate(seq("\\", /./)),
     _string_content: $ => token.immediate(prec(1, /[^"\\\n]+/)),
@@ -227,6 +228,7 @@ module.exports = grammar({
     simple_string: $ => seq('"', repeat(choice( $._string_content, $.escape_sequence )), '"'),
     interpolated_string: $ => seq('$"', repeat(choice( $.interpolation, $.escape_sequence, $._interpolated_string_content )), '"'),
     interpolation: $ => seq("{", $.expression, "}"),
+    doc_string: $ => seq('@@"', repeat(choice( $._string_content, $.escape_sequence )), '"'),
 
     verbatim_string: $ => seq('@"', repeat(choice(token.immediate(/[^"]+/), $._verbatim_quote_escape)), '"'),
     _verbatim_quote_escape: $ => token.immediate('""'),
@@ -242,6 +244,7 @@ module.exports = grammar({
       seq('[', $.expression, ']', '=', $.expression),
       seq($.string , ':', $.expression),
       $.function,
+      $.doc_string,
     )),
 
     function: $ => seq('function', optional($.attributes), optional($.identifier),

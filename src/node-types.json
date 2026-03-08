@@ -683,6 +683,10 @@
           "named": true
         },
         {
+          "type": "doc_string",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -849,6 +853,21 @@
         },
         {
           "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doc_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
           "named": true
         }
       ]
@@ -1612,6 +1631,10 @@
       "required": true,
       "types": [
         {
+          "type": "doc_string",
+          "named": true
+        },
+        {
           "type": "interpolated_string",
           "named": true
         },
@@ -1672,6 +1695,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "doc_string",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -2104,6 +2131,10 @@
     "named": false
   },
   {
+    "type": "@@\"",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -2194,11 +2225,11 @@
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "for",
