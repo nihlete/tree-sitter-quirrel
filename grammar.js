@@ -96,7 +96,7 @@ module.exports = grammar({
     local_statement: $ => prec.left(seq('local', commaSep1($._init_var))),
     _init_var: $ => seq($.identifier, optional($.type_annotation), optional(seq('=', $.expression))),
 
-    let_statement: $ => prec.right(seq('let', $.identifier, optional($.type_annotation), '=', $.expression)),
+    let_statement: $ => prec.left(seq('let', commaSep1($._init_var))),
 
     destructuring_assigment: $ => seq(
       choice("let", "local"),

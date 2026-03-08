@@ -81,6 +81,15 @@ local c = 10, d = 20
     (integer)))
 
 ==================
+Multiple let declaration
+==================
+
+let x=6, y=x, z=x, w=y
+println($"{x}, {y}, {z}, {w}")
+
+---
+
+==================
 Char declaration
 ==================
 
