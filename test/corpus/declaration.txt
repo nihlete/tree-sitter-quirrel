@@ -89,6 +89,30 @@ println($"{x}, {y}, {z}, {w}")
 
 ---
 
+(source_file
+  (let_statement
+    (identifier)
+    (integer)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (string
+        (interpolated_string
+          (interpolation
+            (identifier))
+          (interpolation
+            (identifier))
+          (interpolation
+            (identifier))
+          (interpolation
+            (identifier)))))))
+
 ==================
 Char declaration
 ==================
@@ -390,6 +414,8 @@ class SuperFoo(Foo) {
   }
 }
 
+class D(class {}) {}
+
 ---
 
 (source_file
@@ -421,7 +447,10 @@ class SuperFoo(Foo) {
           (call_expression
             (identifier)
             (string
-              (simple_string))))))))
+              (simple_string)))))))
+  (class_statement
+    (identifier)
+    (class_statement)))
 
 ==================
 Block

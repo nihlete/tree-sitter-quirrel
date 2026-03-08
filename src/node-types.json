@@ -672,8 +672,12 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
+        {
+          "type": "class_statement",
+          "named": true
+        },
         {
           "type": "constructor",
           "named": true

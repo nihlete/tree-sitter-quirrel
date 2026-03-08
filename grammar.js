@@ -107,7 +107,7 @@ module.exports = grammar({
     const_statement: $ => prec(1, seq(optional("global"), "const", $.identifier, "=", $.expression)),
     enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
 
-    class_statement: $ => seq("class", $.identifier, optional(seq("(", $.identifier, ")")),
+    class_statement: $ => seq("class", optional($.identifier), optional(seq("(", choice($.identifier, $.class_statement), ")")),
       "{", repeat(seq($._member_declaration, optional(";"))), "}"),
     _member_declaration: $ => choice(
       $.identifier,
