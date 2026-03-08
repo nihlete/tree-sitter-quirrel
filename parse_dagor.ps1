@@ -1,7 +1,7 @@
 # Define the target directory
 $targetDir = "C:\workspace\DagorEngine"
 
-# Add folder names or partial paths to ignore (e.g., "testData", "diagnostics")
+# Add folder names or partial paths to ignore
 $ignoreDirs = @("prog\1stPartyLibs\quirrel\quirrel\testData\diagnostics")
 
 if (-not (Test-Path $targetDir)) {
@@ -16,10 +16,14 @@ $nutFiles = Get-ChildItem -Path $targetDir -Filter *.nut -Recurse |
     Where-Object { $_.FullName -notmatch $ignorePattern } |
     Sort-Object FullName
 
+$totalFiles = $nutFiles.Count
+$counter = 0
 $foundError = $false
 
 foreach ($file in $nutFiles) {
-    # Run tree-sitter parse (no --quiet to get the tree)
+    $counter++
+
+    # Run tree-sitter parse
     $result = tree-sitter parse "$($file.FullName)" 2>&1
     $treeLines = $result | Out-String -Stream
 
@@ -66,10 +70,15 @@ foreach ($file in $nutFiles) {
         }
 
         Write-Host ("`n" + "-" * 60)
-        break # Early exit to focus on this specific file
+        break # Early exit
     }
 }
 
+# Final Status Output
 if (-not $foundError) {
-    Write-Host "Success: All $($nutFiles.Count) checked .nut files parsed correctly." -ForegroundColor Green
+    Write-Host "Success: All checked .nut files parsed correctly." -ForegroundColor Green
+    Write-Host "Parsed [$counter/$totalFiles] files." -ForegroundColor Cyan
+} else {
+    Write-Host "Execution stopped due to error." -ForegroundColor Yellow
+    Write-Host "Parsed [$counter/$totalFiles] files." -ForegroundColor Cyan
 }

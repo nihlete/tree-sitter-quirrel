@@ -184,11 +184,14 @@ module.exports = grammar({
       $.function,
       $.lambda,
       $.call_expression,
+      $.nullable_call_expression,
       $.ternary_expression,
       $.deref_expression,
       $.index_expression,
       $.nullable_index_expression,
       $.nullable_deref_expression,
+      $.builtin_deref_expression,
+      $.builtin_nullable_deref_expression,
       $.parenthesized_expression,
       $.inline_const_expression,
       $.inline_static_expression,
@@ -281,6 +284,7 @@ module.exports = grammar({
     ),
 
     call_expression: $ => prec.left(PREC.CALL, seq($.expression, "(", commaSep($.expression), ")")),
+    nullable_call_expression: $ => prec.left(PREC.CALL, seq($.expression, "?(", commaSep($.expression), ")")),
 
     ternary_expression: $ => prec.right(PREC.TERNARY, seq($.expression, '?', $.expression, ':', $.expression)),
 
@@ -300,6 +304,8 @@ module.exports = grammar({
 
     deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '.', $.identifier)),
     nullable_deref_expression: $ => prec(PREC.MEMBER, seq($.expression, '?.', $.identifier)),
+    builtin_deref_expression: $ => prec(PREC.MEMBER, seq($.expression, ".$", $.identifier)),
+    builtin_nullable_deref_expression: $ => prec(PREC.MEMBER, seq($.expression, "?.$", $.identifier)),
     index_expression: $ => prec(PREC.MEMBER, seq($.expression, '[', $.expression, ']')),
     nullable_index_expression: $ => prec(PREC.MEMBER, seq($.expression, '?[', $.expression, ']')),
 

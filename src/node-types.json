@@ -158,6 +158,14 @@
         "named": true
       },
       {
+        "type": "builtin_deref_expression",
+        "named": true
+      },
+      {
+        "type": "builtin_nullable_deref_expression",
+        "named": true
+      },
+      {
         "type": "call_expression",
         "named": true
       },
@@ -195,6 +203,10 @@
       },
       {
         "type": "null",
+        "named": true
+      },
+      {
+        "type": "nullable_call_expression",
         "named": true
       },
       {
@@ -562,6 +574,44 @@
     "type": "boolean",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "builtin_deref_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "builtin_nullable_deref_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "call_expression",
@@ -1375,6 +1425,21 @@
     }
   },
   {
+    "type": "nullable_call_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "nullable_deref_expression",
     "named": true,
     "fields": {},
@@ -1912,6 +1977,10 @@
     "named": false
   },
   {
+    "type": ".$",
+    "named": false
+  },
+  {
     "type": "...",
     "named": false
   },
@@ -1980,7 +2049,15 @@
     "named": false
   },
   {
+    "type": "?(",
+    "named": false
+  },
+  {
     "type": "?.",
+    "named": false
+  },
+  {
+    "type": "?.$",
     "named": false
   },
   {
@@ -2090,11 +2167,11 @@
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "for",

@@ -263,6 +263,8 @@ Null coalescing
 let a = null
 let b = a ?? "undefined"
 
+let c = d?(b) ?? "error"
+
 ---
 
 (source_file
@@ -273,5 +275,13 @@ let b = a ?? "undefined"
     (identifier)
     (null_coalescing
       (identifier)
+      (string
+        (simple_string))))
+  (let_statement
+    (identifier)
+    (null_coalescing
+      (nullable_call_expression
+        (identifier)
+        (identifier))
       (string
         (simple_string)))))
