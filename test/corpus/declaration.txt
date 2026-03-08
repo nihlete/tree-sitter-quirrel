@@ -257,8 +257,9 @@ println(debug.doc(debug.doc))
     (function
       (identifier)
       (block)))
-  (class_statement
-    (identifier))
+  (expression_statement
+    (class
+      (identifier)))
   (let_statement
     (identifier)
     (call_expression
@@ -266,15 +267,16 @@ println(debug.doc(debug.doc))
   (let_statement
     (identifier)
     (table))
-  (class_statement
-    (identifier)
-    (doc_string)
-    (function
+  (expression_statement
+    (class
       (identifier)
-      (block
-        (return
-          (integer))
-        (empty_statement))))
+      (doc_string)
+      (function
+        (identifier)
+        (block
+          (return
+            (integer))
+          (empty_statement)))))
   (let_statement
     (identifier)
     (call_expression
@@ -484,13 +486,13 @@ Class declaration
 class Foo {
   //constructor
   constructor(a) {
-      this.testy = ["stuff",1,2,3,a]
+    this.testy = ["stuff",1,2,3,a]
   }
   //member function
   function PrintTesty() {
-      foreach(i,val in this.testy) {
-          print("idx = "+i+" = "+val)
-      }
+    foreach(i,val in this.testy) {
+      print("idx = "+i+" = "+val)
+    }
   }
   //property
   testy = null
@@ -499,51 +501,146 @@ class Foo {
 ---
 
 (source_file
-  (class_statement
-    (identifier)
-    (comment)
-    (constructor
-      (param
-        (identifier))
-      (block
-        (expression_statement
-          (assignment
+  (expression_statement
+    (class
+      (identifier)
+      (comment)
+      (constructor
+        (param
+          (identifier))
+        (block
+          (expression_statement
+            (assignment
+              (deref_expression
+                (identifier)
+                (identifier))
+              (array
+                (string
+                  (simple_string))
+                (integer)
+                (integer)
+                (integer)
+                (identifier))))))
+      (comment)
+      (function
+        (identifier)
+        (block
+          (foreach_statement
+            (identifier)
+            (identifier)
             (deref_expression
               (identifier)
               (identifier))
-            (array
-              (string
-                (simple_string))
-              (integer)
-              (integer)
-              (integer)
-              (identifier))))))
-    (comment)
-    (function
-      (identifier)
-      (block
-        (foreach_statement
-          (identifier)
-          (identifier)
-          (deref_expression
-            (identifier)
-            (identifier))
-          (block
-            (expression_statement
-              (call_expression
-                (identifier)
-                (add
+            (block
+              (expression_statement
+                (call_expression
+                  (identifier)
                   (add
                     (add
+                      (add
+                        (string
+                          (simple_string))
+                        (identifier))
                       (string
-                        (simple_string))
-                      (identifier))
-                    (string
-                      (simple_string)))
-                  (identifier))))))))
-    (comment)
+                        (simple_string)))
+                    (identifier))))))))
+      (comment)
+      (identifier)
+      (null))))
+
+==================
+Class let statement
+==================
+
+let Style = class { //to be able distinguish style elements from components
+  value = null
+  constructor(...) {
+    //I do not know the way to return instance of the same class if it is passed here
+    let val = {}
+    foreach(v in vargv){
+      if (v instanceof this.getclass()) { //to create Style from Styles
+        val.__update(v.value)
+      }
+      else {
+        if (type(v) != "table")
+          logerr($"incorrect type of style: {type(v)}")
+        val.__update(v)
+      }
+    }
+    this.value = freeze(val)
+  }
+}
+
+
+---
+
+(source_file
+  (let_statement
     (identifier)
-    (null)))
+    (class
+      (comment)
+      (identifier)
+      (null)
+      (constructor
+        (variadic_param)
+        (block
+          (comment)
+          (let_statement
+            (identifier)
+            (table))
+          (foreach_statement
+            (identifier)
+            (identifier)
+            (block
+              (if_statement
+                (instanceof
+                  (identifier)
+                  (call_expression
+                    (deref_expression
+                      (identifier)
+                      (identifier))))
+                (block
+                  (comment)
+                  (expression_statement
+                    (call_expression
+                      (deref_expression
+                        (identifier)
+                        (identifier))
+                      (deref_expression
+                        (identifier)
+                        (identifier)))))
+                (else_statement
+                  (block
+                    (if_statement
+                      (not_equal
+                        (call_expression
+                          (identifier)
+                          (identifier))
+                        (string
+                          (simple_string)))
+                      (expression_statement
+                        (call_expression
+                          (identifier)
+                          (string
+                            (interpolated_string
+                              (interpolation
+                                (call_expression
+                                  (identifier)
+                                  (identifier))))))))
+                    (expression_statement
+                      (call_expression
+                        (deref_expression
+                          (identifier)
+                          (identifier))
+                        (identifier))))))))
+          (expression_statement
+            (assignment
+              (deref_expression
+                (identifier)
+                (identifier))
+              (call_expression
+                (identifier)
+                (identifier)))))))))
 
 ==================
 Class static members
@@ -561,18 +658,19 @@ class Foo {
 ---
 
 (source_file
-  (class_statement
-    (identifier)
-    (constructor
-      (block
-        (comment)))
-    (identifier)
-    (string
-      (simple_string))
-    (comment)
-    (identifier)
-    (string
-      (simple_string)))
+  (expression_statement
+    (class
+      (identifier)
+      (constructor
+        (block
+          (comment)))
+      (identifier)
+      (string
+        (simple_string))
+      (comment)
+      (identifier)
+      (string
+        (simple_string))))
   (empty_statement))
 
 ==================
@@ -599,38 +697,41 @@ class D(class {}) {}
 ---
 
 (source_file
-  (class_statement
-    (identifier)
-    (function
+  (expression_statement
+    (class
       (identifier)
-      (block
-        (expression_statement
-          (call_expression
-            (identifier)
-            (string
-              (simple_string)))))))
-  (empty_statement)
-  (class_statement
-    (identifier)
-    (identifier)
-    (comment)
-    (function
-      (identifier)
-      (block
-        (comment)
-        (expression_statement
-          (call_expression
-            (deref_expression
+      (function
+        (identifier)
+        (block
+          (expression_statement
+            (call_expression
               (identifier)
-              (identifier))))
-        (expression_statement
-          (call_expression
-            (identifier)
-            (string
-              (simple_string)))))))
-  (class_statement
-    (identifier)
-    (class_statement)))
+              (string
+                (simple_string))))))))
+  (empty_statement)
+  (expression_statement
+    (class
+      (identifier)
+      (identifier)
+      (comment)
+      (function
+        (identifier)
+        (block
+          (comment)
+          (expression_statement
+            (call_expression
+              (deref_expression
+                (identifier)
+                (identifier))))
+          (expression_statement
+            (call_expression
+              (identifier)
+              (string
+                (simple_string))))))))
+  (expression_statement
+    (class
+      (identifier)
+      (class))))
 
 ==================
 Block

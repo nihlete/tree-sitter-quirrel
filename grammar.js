@@ -69,7 +69,6 @@ module.exports = grammar({
       $.let_statement,
       $.const_statement,
       $.enum_statement,
-      $.class_statement,
       $.destructuring_assigment,
       $.if_statement,
       $.while_statement,
@@ -105,20 +104,7 @@ module.exports = grammar({
     table_deconstruction: $ => seq("{", commaSep1($._init_var), "}"),
 
     const_statement: $ => prec(1, seq(optional("global"), "const", $.identifier, "=", $.expression)),
-    enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep1(seq($.identifier, optional(seq("=", $.expression)))), "}"),
-
-    class_statement: $ => seq("class", optional($.identifier), optional(seq("(", choice($.identifier, $.class_statement), ")")),
-      "{", repeat(seq($._member_declaration, optional(";"))), "}"),
-    _member_declaration: $ => choice(
-      $.identifier,
-      seq(optional("static"), $.identifier, '=', $.expression),
-      seq('[', $.expression, ']', '=', $.expression),
-      seq($.string , ':', $.expression),
-      $.function,
-      $.constructor,
-      $.doc_string,
-    ),
-    constructor: $ => seq("constructor", "(", commaSep($.param), optional($.variadic_param), ")", $.block),
+    enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep(seq($.identifier, optional(seq("=", $.expression)))), "}"),
 
     if_statement: $ => prec.right(seq("if", "(", $.expression, ")", $.statement, optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
@@ -135,11 +121,11 @@ module.exports = grammar({
     default_statement: $ => seq("default", ":", repeat($.statement)),
 
     for_statement: $ => seq("for", "(",
-      optional(choice($.expression, $.local_statement)),
+      commaSep(choice($.expression, $.local_statement)),
       ";",
-      optional($.expression),
+      commaSep($.expression),
       ";",
-      optional($.expression),
+      commaSep($.expression),
       ")",
       $.statement
     ),
@@ -157,7 +143,7 @@ module.exports = grammar({
 
     continue: $ => "continue",
     break: $ => "break",
-    return: $ => prec.right(seq('return', optional($.expression))),
+    return: $ => prec.right(seq('return', choice($.expression, optional("\n")))),
     throw: $ => seq("throw", $.expression),
 
     yeld: $ => prec.right(seq('yeld', optional($.expression))),
@@ -183,6 +169,7 @@ module.exports = grammar({
       $.boolean,
       $.array,
       $.table,
+      $.class,
       $.function,
       $.lambda,
       $.call_expression,
@@ -195,8 +182,9 @@ module.exports = grammar({
       $.builtin_deref_expression,
       $.builtin_nullable_deref_expression,
       $.parenthesized_expression,
-      $.inline_const_expression,
-      $.inline_static_expression,
+      $.const_expression,
+      $.static_expression,
+      $.clone_expression,
       $.unary_expression,
       $.binary_expression,
       $.typeof_expression,
@@ -247,9 +235,25 @@ module.exports = grammar({
       $.doc_string,
     )),
 
+    class: $ => seq("class", optional($.identifier), optional(seq("(", $.expression, ")")),
+      "{", repeat(seq($._member_declaration, optional(";"))), "}"),
+    _member_declaration: $ => seq(
+      optional("static"),
+      choice(
+        $.identifier,
+        seq($.identifier, '=', $.expression),
+        seq('[', $.expression, ']', '=', $.expression),
+        seq($.string , ':', $.expression),
+        $.function,
+        $.constructor,
+        $.doc_string,
+      )
+    ),
+    constructor: $ => seq("constructor", "(", commaSep($.param), optional($.variadic_param), ")", $.block),
+
     function: $ => seq('function', optional($.attributes), optional($.identifier),
       "(", commaSep($.param), optional($.variadic_param), ")", optional($.type_annotation), $.block),
-    lambda: $ => seq("@", optional($.attributes), "(", commaSep($.param), optional($.variadic_param), ")", optional($.type_annotation), $.expression),
+    lambda: $ => seq("@", optional($.attributes), optional($.identifier), "(", commaSep($.param), optional($.variadic_param), ")", optional($.type_annotation), $.expression),
     param: $ => choice(
       seq($.identifier, optional($.type_annotation), optional(seq('=', $.expression))),
       $.array_param_deconstruction,
@@ -316,8 +320,9 @@ module.exports = grammar({
 
     parenthesized_expression: $ => prec(PREC.PAREN, seq('(', $.expression, ')')),
 
-    inline_const_expression: $ => prec(PREC.CONST, seq("const", $.primary_expression)),
-    inline_static_expression: $ => prec(PREC.CONST, seq("static", $.primary_expression)),
+    const_expression: $ => prec(PREC.CONST, seq("const", $.primary_expression)),
+    static_expression: $ => prec(PREC.CONST, seq("static", $.primary_expression)),
+    clone_expression: $ => prec(PREC.CONST, seq("clone", $.primary_expression)),
 
     unary_expression: $ => choice(
       $._unary_post_expression,

@@ -98,3 +98,189 @@ script += $"// seed = {seed}\n"
           (interpolation
             (identifier))
           (escape_sequence))))))
+
+==================
+Empty return statment
+==================
+
+if (__name__ == "__analysis__")
+  return
+
+//expect:w266
+
+{
+  ::x++
+} while (::x)
+::x--
+
+//-file:undefined-global
+
+---
+
+(source_file
+  (if_statement
+    (equal
+      (identifier)
+      (string
+        (simple_string)))
+    (return))
+  (comment)
+  (block
+    (expression_statement
+      (unary_expression
+        (global_identifier
+          (identifier)))))
+  (while_statement
+    (global_identifier
+      (identifier))
+    (expression_statement
+      (unary_expression
+        (global_identifier
+          (identifier)))))
+  (comment))
+
+==================
+Some trouble with class
+==================
+
+from "daRg" import *
+import "daRg.behaviors" as Behaviors
+from "%sqstd/underscore.nut" import partition, flatten
+from "%darg/ui_imports.nut" import logerr, log
+
+/*
+laconic framework
+make layout less nested and allow short way to setup properties (like flow, flex, and so on)
+
+compare
+let foo = {
+  flow = FLOW_VERTICAL
+  children = [
+    {rendObj = ...}
+    {...}
+    {
+      flow = FLOW_HORIZONTAL
+      children = [child1, child2]
+    }
+  ]
+}
+and
+let foo = comp(
+  FlowV,
+  {rendObj = ...},
+  {...}
+  comp(FlowV, child1, child2)
+)
+or
+let foo = comp(Style({flow = FLOW_HORIZONTAL}, child1, child2))
+
+todo:
+  correct combine watch and behaviors (do not override)
+*/
+
+let Style = class { //to be able distinguish style elements from components
+  value = null
+  constructor(...) {
+    //I do not know the way to return instance of the same class if it is passed here
+    let val = {}
+    foreach(v in vargv){
+      if (v instanceof this.getclass()) { //to create Style from Styles
+        val.__update(v.value)
+      }
+      else {
+        if (type(v) != "table")
+          logerr($"incorrect type of style: {type(v)}")
+        val.__update(v)
+      }
+    }
+    this.value = freeze(val)
+  }
+}
+
+---
+
+(source_file
+  (from_import_statement
+    (string
+      (simple_string)))
+  (import_statement
+    (string
+      (simple_string))
+    (identifier))
+  (from_import_statement
+    (string
+      (simple_string))
+    (identifier)
+    (identifier))
+  (from_import_statement
+    (string
+      (simple_string))
+    (identifier)
+    (identifier))
+  (comment)
+  (let_statement
+    (identifier)
+    (class
+      (comment)
+      (identifier)
+      (null)
+      (constructor
+        (variadic_param)
+        (block
+          (comment)
+          (let_statement
+            (identifier)
+            (table))
+          (foreach_statement
+            (identifier)
+            (identifier)
+            (block
+              (if_statement
+                (instanceof
+                  (identifier)
+                  (call_expression
+                    (deref_expression
+                      (identifier)
+                      (identifier))))
+                (block
+                  (comment)
+                  (expression_statement
+                    (call_expression
+                      (deref_expression
+                        (identifier)
+                        (identifier))
+                      (deref_expression
+                        (identifier)
+                        (identifier)))))
+                (else_statement
+                  (block
+                    (if_statement
+                      (not_equal
+                        (call_expression
+                          (identifier)
+                          (identifier))
+                        (string
+                          (simple_string)))
+                      (expression_statement
+                        (call_expression
+                          (identifier)
+                          (string
+                            (interpolated_string
+                              (interpolation
+                                (call_expression
+                                  (identifier)
+                                  (identifier))))))))
+                    (expression_statement
+                      (call_expression
+                        (deref_expression
+                          (identifier)
+                          (identifier))
+                        (identifier))))))))
+          (expression_statement
+            (assignment
+              (deref_expression
+                (identifier)
+                (identifier))
+              (call_expression
+                (identifier)
+                (identifier)))))))))

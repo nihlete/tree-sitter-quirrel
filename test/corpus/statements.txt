@@ -78,7 +78,7 @@ const evaluated = foobar + (("a" in compound) ? compound.e[0] : (nullconst ?? fl
               (identifier))))))))
 
 ==================
-inline const expression
+const expression
 ==================
 
 let y = 2>3 ? const [1,2,3] : const [8,9,0]
@@ -93,12 +93,12 @@ println(y[2]) // prints 0
       (gt
         (integer)
         (integer))
-      (inline_const_expression
+      (const_expression
         (array
           (integer)
           (integer)
           (integer)))
-      (inline_const_expression
+      (const_expression
         (array
           (integer)
           (integer)
@@ -112,7 +112,7 @@ println(y[2]) // prints 0
   (comment))
 
 ==================
-inline static expression
+static expression
 ==================
 
 local x = static(expensiveCalculation()) // expensiveCalculation() is called only once
@@ -125,14 +125,14 @@ frozenTable.a = 42 // Error: attempt to modify a frozen object
 (source_file
   (local_statement
     (identifier)
-    (inline_static_expression
+    (static_expression
       (parenthesized_expression
         (call_expression
           (identifier)))))
   (comment)
   (local_statement
     (identifier)
-    (inline_static_expression
+    (static_expression
       (table
         (identifier)
         (integer)
@@ -146,6 +146,25 @@ frozenTable.a = 42 // Error: attempt to modify a frozen object
         (identifier))
       (integer)))
   (comment))
+
+==================
+clone expression
+==================
+
+let nkeys = (clone path).append(ok)
+
+---
+
+(source_file
+  (let_statement
+    (identifier)
+    (call_expression
+      (deref_expression
+        (parenthesized_expression
+          (clone_expression
+            (identifier)))
+        (identifier))
+      (identifier))))
 
 ==================
 root-table access
