@@ -2829,8 +2829,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '{') ADVANCE(32);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(66);
-      if (lookahead != 0 &&
-          lookahead != '}') ADVANCE(67);
+      if (lookahead != 0) ADVANCE(67);
       END_STATE();
     case 2:
       if (lookahead == '\n') SKIP(9);
@@ -3265,8 +3264,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '\\' &&
-          lookahead != '{' &&
-          lookahead != '}') ADVANCE(67);
+          lookahead != '{') ADVANCE(67);
       END_STATE();
     case 64:
       ACCEPT_TOKEN(sym__interpolated_string_content);
@@ -3276,8 +3274,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '\\' &&
-          lookahead != '{' &&
-          lookahead != '}') ADVANCE(65);
+          lookahead != '{') ADVANCE(65);
       END_STATE();
     case 65:
       ACCEPT_TOKEN(sym__interpolated_string_content);
@@ -3286,8 +3283,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '\\' &&
-          lookahead != '{' &&
-          lookahead != '}') ADVANCE(65);
+          lookahead != '{') ADVANCE(65);
       END_STATE();
     case 66:
       ACCEPT_TOKEN(sym__interpolated_string_content);
@@ -3299,8 +3295,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           (lookahead < '\t' || '\r' < lookahead) &&
           lookahead != '"' &&
           lookahead != '\\' &&
-          lookahead != '{' &&
-          lookahead != '}') ADVANCE(67);
+          lookahead != '{') ADVANCE(67);
       END_STATE();
     case 67:
       ACCEPT_TOKEN(sym__interpolated_string_content);
@@ -3308,8 +3303,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '"' &&
           lookahead != '\\' &&
-          lookahead != '{' &&
-          lookahead != '}') ADVANCE(67);
+          lookahead != '{') ADVANCE(67);
       END_STATE();
     case 68:
       ACCEPT_TOKEN(anon_sym_DQUOTE);

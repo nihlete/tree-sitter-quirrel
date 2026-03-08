@@ -158,6 +158,8 @@ Interpolated string declaration
 let c = $""
 let d = $"a = {a}"
 
+println($"{foo()}}}}}}")
+
 ---
 
 (source_file
@@ -170,7 +172,15 @@ let d = $"a = {a}"
     (string
       (interpolated_string
         (interpolation
-          (identifier))))))
+          (identifier)))))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (string
+        (interpolated_string
+          (interpolation
+            (call_expression
+              (identifier))))))))
 
 ==================
 Verbatim string declaration
