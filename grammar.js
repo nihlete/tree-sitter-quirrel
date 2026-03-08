@@ -61,6 +61,8 @@ module.exports = grammar({
     statement: $ => choice(
       $.empty_statement,
       $.compiler_directive,
+      $.import_statement,
+      $.from_import_statement,
       $.block,
       $.local_statement,
       $.let_statement,
@@ -84,6 +86,9 @@ module.exports = grammar({
     ),
 
     empty_statement: $ => ";",
+
+    import_statement: $ => seq("import", $.string, optional(seq("as", $.identifier))),
+    from_import_statement: $ => prec.right(seq("from", $.string, "import", choice("*", commaSep1($.identifier)))),
 
     block: $ => prec(PREC.PAREN, seq('{', repeat($.statement), '}')),
 

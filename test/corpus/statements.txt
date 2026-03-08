@@ -850,3 +850,46 @@ function foo() {
               (identifier)
               (string
                 (simple_string)))))))))
+
+==================
+import statement
+==================
+
+import "samples_prog/_cursors.nut" as cursors
+import "gamelib.input" as input
+import "eventbus"
+
+---
+
+(source_file
+  (import_statement
+    (string
+      (simple_string))
+    (identifier))
+  (import_statement
+    (string
+      (simple_string))
+    (identifier))
+  (import_statement
+    (string
+      (simple_string))))
+
+==================
+from import statement
+==================
+
+from "daRg" import *
+from "%darg/darg_library.nut" import hdpx, Behaviors, FLEX_H
+
+---
+
+(source_file
+  (from_import_statement
+    (string
+      (simple_string)))
+  (from_import_statement
+    (string
+      (simple_string))
+    (identifier)
+    (identifier)
+    (identifier)))

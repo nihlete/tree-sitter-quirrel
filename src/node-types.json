@@ -292,7 +292,15 @@
         "named": true
       },
       {
+        "type": "from_import_statement",
+        "named": true
+      },
+      {
         "type": "if_statement",
+        "named": true
+      },
+      {
+        "type": "import_statement",
         "named": true
       },
       {
@@ -885,6 +893,25 @@
     }
   },
   {
+    "type": "from_import_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "function",
     "named": true,
     "fields": {},
@@ -982,6 +1009,25 @@
         },
         {
           "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -1974,6 +2020,10 @@
     "named": false
   },
   {
+    "type": "as",
+    "named": false
+  },
+  {
     "type": "attribute",
     "named": true
   },
@@ -2055,6 +2105,10 @@
     "named": false
   },
   {
+    "type": "from",
+    "named": false
+  },
+  {
     "type": "function",
     "named": false
   },
@@ -2072,6 +2126,10 @@
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "import",
     "named": false
   },
   {
