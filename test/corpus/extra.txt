@@ -1,5 +1,5 @@
 ==================
-Test
+Block vs table
 ==================
 
 function sendLogToClients(log, connids=null){
@@ -82,26 +82,19 @@ function sendLogToClients(log, connids=null){
                     (identifier)))))))))))
 
 ==================
-Test 2
+Strings and comments
 ==================
 
-{
-  connids = connids0
-  if (true)
-    server_msg_sink(connids)
-}
+script += $"// seed = {seed}\n"
 
 ---
 
 (source_file
-  (block
-    (expression_statement
-      (assignment
-        (identifier)
-        (identifier)))
-    (if_statement
-      (boolean)
-      (expression_statement
-        (call_expression
-          (identifier)
-          (identifier))))))
+  (expression_statement
+    (compound_assignment
+      (identifier)
+      (string
+        (interpolated_string
+          (interpolation
+            (identifier))
+          (escape_sequence))))))
