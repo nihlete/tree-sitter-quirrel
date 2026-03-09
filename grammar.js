@@ -216,7 +216,7 @@ module.exports = grammar({
     _string_content: $ => token.immediate(prec(1, /[^"\\\n]+/)),
     _interpolated_string_content: $ => token.immediate(prec(1, /[^"{\\\n]+/)),
     simple_string: $ => seq('"', repeat(choice( $._string_content, $.escape_sequence )), '"'),
-    interpolated_string: $ => seq('$"', repeat(choice( $.interpolation, $.escape_sequence, $._interpolated_string_content )), '"'),
+    interpolated_string: $ => seq("$", token.immediate('"'), repeat(choice( $.interpolation, $.escape_sequence, $._interpolated_string_content )), '"'),
     interpolation: $ => seq("{", $.expression, "}"),
     doc_string: $ => seq('@@"', repeat(choice( $._string_content, $.escape_sequence )), '"'),
 
