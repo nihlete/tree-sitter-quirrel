@@ -80,8 +80,9 @@ module.exports = grammar({
       $.continue,
       $.break,
       $.return,
-      $.yeld,
+      $.yield,
       $.throw,
+      $.delete,
       $.expression_statement,
     ),
 
@@ -145,8 +146,9 @@ module.exports = grammar({
     break: $ => "break",
     return: $ => prec.right(seq('return', choice($.expression, optional("\n")))),
     throw: $ => seq("throw", $.expression),
+    delete: $ => seq("delete", $.expression),
 
-    yeld: $ => prec.right(seq('yeld', optional($.expression))),
+    yield: $ => prec.right(seq('yield', optional($.expression))),
     resume_expression: $ => prec.right(seq('resume', optional($.expression))),
 
     expression_statement: $ => $.expression,

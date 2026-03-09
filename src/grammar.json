@@ -95,11 +95,15 @@
         },
         {
           "type": "SYMBOL",
-          "name": "yeld"
+          "name": "yield"
         },
         {
           "type": "SYMBOL",
           "name": "throw"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delete"
         },
         {
           "type": "SYMBOL",
@@ -1172,7 +1176,20 @@
         }
       ]
     },
-    "yeld": {
+    "delete": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "delete"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "yield": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -1180,7 +1197,7 @@
         "members": [
           {
             "type": "STRING",
-            "value": "yeld"
+            "value": "yield"
           },
           {
             "type": "CHOICE",

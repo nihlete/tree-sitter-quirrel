@@ -568,10 +568,8 @@ for (local x=resume gtor; x; x=resume gtor)
             (identifier))
           (unary_expression
             (identifier))
-          (expression_statement
+          (yield
             (identifier)))
-        (expression_statement
-          (identifier))
         (return
           (null)))))
   (let_statement
