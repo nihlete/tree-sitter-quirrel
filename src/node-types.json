@@ -1046,6 +1046,10 @@
           "named": true
         },
         {
+          "type": "import_alias",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         }
@@ -1150,6 +1154,21 @@
         },
         {
           "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_alias",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -2275,11 +2294,11 @@
   },
   {
     "type": "float",
-    "named": true
+    "named": false
   },
   {
     "type": "float",
-    "named": false
+    "named": true
   },
   {
     "type": "for",

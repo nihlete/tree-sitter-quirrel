@@ -247,6 +247,13 @@ else {
   a = 10
 }
 
+if (local cv = iv)
+  println(cv)
+
+// this is wierd one, but it is how it is right now
+if (let cv: int = iv; cv > -1000000)
+  println(cv)
+
 ---
 
 (source_file
@@ -274,7 +281,30 @@ else {
             (expression_statement
               (assignment
                 (identifier)
-                (integer)))))))))
+                (integer))))))))
+  (if_statement
+    (local_statement
+      (identifier)
+      (identifier))
+    (expression_statement
+      (call_expression
+        (identifier)
+        (identifier))))
+  (comment)
+  (if_statement
+    (let_statement
+      (identifier)
+      (type_annotation
+        (type_declaration))
+      (identifier))
+    (gt
+      (identifier)
+      (unary_expression
+        (integer)))
+    (expression_statement
+      (call_expression
+        (identifier)
+        (identifier)))))
 
 ==================
 while statement
@@ -898,6 +928,7 @@ from import statement
 
 from "daRg" import *
 from "%darg/darg_library.nut" import hdpx, Behaviors, FLEX_H
+from "math" import sin, cos as cosine
 
 ---
 
@@ -910,4 +941,11 @@ from "%darg/darg_library.nut" import hdpx, Behaviors, FLEX_H
       (simple_string))
     (identifier)
     (identifier)
-    (identifier)))
+    (identifier))
+  (from_import_statement
+    (string
+      (simple_string))
+    (identifier)
+    (import_alias
+      (identifier)
+      (identifier))))

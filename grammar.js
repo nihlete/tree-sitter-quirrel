@@ -89,7 +89,11 @@ module.exports = grammar({
     empty_statement: $ => ";",
 
     import_statement: $ => seq("import", $.string, optional(seq("as", $.identifier))),
-    from_import_statement: $ => prec.right(seq("from", $.string, "import", choice("*", commaSep1($.identifier)))),
+    from_import_statement: $ => prec.right(seq("from", $.string, "import", choice(
+      "*",
+      commaSep1(choice($.identifier, $.import_alias))))
+    ),
+    import_alias: $ => seq($.identifier, "as", $.identifier),
 
     block: $ => prec(PREC.PAREN, seq('{', repeat($.statement), '}')),
 
@@ -101,13 +105,19 @@ module.exports = grammar({
     destructuring_assigment: $ => seq(
       choice("let", "local"),
       choice($.array_deconstruction, $.table_deconstruction), "=", $.expression),
-    array_deconstruction: $ => seq("[", commaSep1($._init_var), "]"),
-    table_deconstruction: $ => seq("{", commaSep1($._init_var), "}"),
+    array_deconstruction: $ => seq("[", commaSep1($._init_var), optional(","), "]"),
+    table_deconstruction: $ => seq("{", commaSep1($._init_var), optional(","), "}"),
 
     const_statement: $ => prec(1, seq(optional("global"), "const", $.identifier, "=", $.expression)),
-    enum_statement: $ => seq(optional("global"), "enum", $.identifier, "{", commaSep(seq($.identifier, optional(seq("=", $.expression)))), "}"),
+    enum_statement: $ => seq(
+      optional("global"), "enum",
+      $.identifier,
+      "{", commaSep(seq($.identifier, optional(seq("=", $.expression)))), optional(","), "}"),
 
-    if_statement: $ => prec.right(seq("if", "(", $.expression, ")", $.statement, optional($.else_statement))),
+    if_statement: $ => prec.right(seq("if", "(",
+      optional(seq(choice($.let_statement, $.local_statement), ";")),
+      choice($.expression, $.let_statement, $.local_statement),
+      ")", $.statement, optional($.else_statement))),
     else_statement: $ => seq("else", $.statement),
 
     while_statement: $ => seq("while", "(", $.expression, ")", $.statement),
@@ -262,7 +272,7 @@ module.exports = grammar({
       $.table_param_deconstruction,
     ),
     variadic_param: $ => seq(optional(","), "...", optional($.type_annotation)),
-    attributes: $ => seq("[", commaSep1(alias($.identifier, $.attribute)), "]"),
+    attributes: $ => seq("[", commaSep1(alias($.identifier, $.attribute)), optional(","), "]"),
     array_param_deconstruction: $ => seq("[", commaSep1($.param), "]"),
     table_param_deconstruction: $ => seq("{", commaSep1($.param), "}"),
 
