@@ -1,4 +1,5 @@
 [
+  "as"
   "case"
   "catch"
   "class"
@@ -7,25 +8,26 @@
   "constructor"
   "default"
   "delete"
+  "do"
   "else"
   "enum"
-  "false"
   "for"
   "foreach"
+  "from"
   "function"
+  "global"
   "if"
+  "import"
   "in"
   "instanceof"
   "let"
   "local"
   "not in"
-  "null"
   "resume"
   "return"
   "static"
   "switch"
   "throw"
-  "true"
   "try"
   "typeof"
   "while"
@@ -37,7 +39,10 @@
 (identifier) @variable
 
 ; Highlight the entire string first
-(string) @string
+[
+  (string)
+  (doc_string)
+] @string
 
 ; Highlight the interpolation braces specifically
 (interpolation ["{" "}"] @punctuation.special)
@@ -49,3 +54,28 @@
 (interpolated_string "$" @punctuation.special)
 
 (comment) @comment
+
+[
+  "null"
+  "true"
+  "false"
+  (number)
+] @constant.numeric
+
+(boolean) @boolean
+
+[
+  (attributes)
+  (compiler_directive)
+] @tag
+
+(type_declaration) @type
+; Override keywords if they are used as types
+(type_declaration [
+  "function"
+  "class"
+] @type)
+; Override constants if they are used as types
+(type_declaration [
+  "null"
+] @type)
